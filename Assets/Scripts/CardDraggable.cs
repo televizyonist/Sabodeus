@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CardDraggable : MonoBehaviour
+public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     private Vector3 offset;
     private Camera cam;
@@ -9,6 +10,9 @@ public class CardDraggable : MonoBehaviour
     private HandLayoutFanStyle layout;
     private Vector3 previousPos;
     public float rotationMultiplier = 30f;
+    public float hoverHeight = 0.5f;
+    public float hoverForward = 2f;
+    private bool isHovered = false;
 
     void Start()
     {
@@ -16,7 +20,7 @@ public class CardDraggable : MonoBehaviour
         layout = transform.parent?.GetComponent<HandLayoutFanStyle>();
     }
 
-    void OnMouseEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
         if (isDragging) return;
         originalPos = transform.localPosition;
@@ -26,13 +30,13 @@ public class CardDraggable : MonoBehaviour
         transform.localPosition = pos;
     }
 
-    void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
         if (isDragging) return;
         transform.localPosition = originalPos;
     }
 
-    void OnMouseDown()
+    public void OnPointerDown(PointerEventData eventData)
     {
         isDragging = true;
         Vector3 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -40,7 +44,7 @@ public class CardDraggable : MonoBehaviour
         previousPos = transform.position;
     }
 
-    void OnMouseDrag()
+    public void OnDrag(PointerEventData eventData)
     {
         if (!isDragging) return;
 
@@ -53,9 +57,10 @@ public class CardDraggable : MonoBehaviour
         previousPos = target;
     }
 
-    void OnMouseUp()
+    public void OnPointerUp(PointerEventData eventData)
     {
         isDragging = false;
+        isHovered = false;
         transform.rotation = Quaternion.identity;
         layout?.UpdateLayout();
     }

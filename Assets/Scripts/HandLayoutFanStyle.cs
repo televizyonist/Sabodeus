@@ -18,11 +18,12 @@ public class HandLayoutFanStyle : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Transform card = transform.GetChild(i);
-            float x = (i - (count - 1) / 2f) * spacing;
-            float y = -Mathf.Abs(x) * curveHeight + verticalShift;
+            float offsetIndex = i - (count - 1) / 2f;
+            float x = offsetIndex * spacing;
+            float y = -Mathf.Abs(offsetIndex) * curveHeight + verticalShift;
 
             card.localPosition = new Vector3(x, y, -i * depthOffset);
-            float angle = x * rotationScale;
+            float angle = offsetIndex * rotationScale;
             card.localRotation = Quaternion.Euler(0, 0, angle);
         }
     }
