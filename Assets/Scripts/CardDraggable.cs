@@ -7,6 +7,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Camera cam;
     private bool isDragging = false;
     private Vector3 originalPos;
+    private Transform originalParent;
     private HandLayoutFanStyle layout;
     private Vector3 previousPos;
     public float rotationMultiplier = 30f;
@@ -22,6 +23,13 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        originalParent = transform.parent;
+        if (layout != null && originalParent == layout.transform)
+        {
+            transform.SetParent(null, true);
+            layout.UpdateLayout();
+        }
+
         if (isDragging) return;
         originalPos = transform.localPosition;
         Vector3 pos = originalPos;
