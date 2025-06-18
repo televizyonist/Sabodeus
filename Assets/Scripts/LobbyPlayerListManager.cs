@@ -33,6 +33,12 @@ public class LobbyPlayerListManager : NetworkBehaviour
 
     private void OnDisable()
     {
+        if (IsServer && NetworkManager.Singleton != null)
+        {
+            NetworkManager.OnClientConnectedCallback -= OnClientConnected;
+            NetworkManager.OnClientDisconnectCallback -= OnClientDisconnected;
+        }
+
         if (connectedClientIds != null)
         {
             connectedClientIds.OnListChanged -= OnListChangedLog;
