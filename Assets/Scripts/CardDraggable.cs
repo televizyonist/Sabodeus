@@ -9,6 +9,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Vector3 originalPos;
     private HandLayoutFanStyle layout;
     private Vector3 previousPos;
+    private Transform originalParent;
     public float rotationMultiplier = 30f;
     public float hoverHeight = 0.5f;
     public float hoverForward = 2f;
