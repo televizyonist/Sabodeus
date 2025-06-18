@@ -1,0 +1,804 @@
+{
+  "cards": [
+    {
+      "id": "bridge-0-0",
+      "type": "Bridge",
+      "leftValue": 0,
+      "rightValue": 0,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-1-1",
+      "type": "Bridge",
+      "leftValue": 1,
+      "rightValue": 1,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-2-2",
+      "type": "Bridge",
+      "leftValue": 2,
+      "rightValue": 2,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-3-3",
+      "type": "Bridge",
+      "leftValue": 3,
+      "rightValue": 3,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-4-4",
+      "type": "Bridge",
+      "leftValue": 4,
+      "rightValue": 4,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-5-5",
+      "type": "Bridge",
+      "leftValue": 5,
+      "rightValue": 5,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-6-6",
+      "type": "Bridge",
+      "leftValue": 6,
+      "rightValue": 6,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-7-7",
+      "type": "Bridge",
+      "leftValue": 7,
+      "rightValue": 7,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-8-8",
+      "type": "Bridge",
+      "leftValue": 8,
+      "rightValue": 8,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-9-9",
+      "type": "Bridge",
+      "leftValue": 9,
+      "rightValue": 9,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-0-0",
+      "type": "Bridge",
+      "leftValue": 0,
+      "rightValue": 0,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-1-1",
+      "type": "Bridge",
+      "leftValue": 1,
+      "rightValue": 1,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-2-2",
+      "type": "Bridge",
+      "leftValue": 2,
+      "rightValue": 2,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-3-3",
+      "type": "Bridge",
+      "leftValue": 3,
+      "rightValue": 3,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-4-4",
+      "type": "Bridge",
+      "leftValue": 4,
+      "rightValue": 4,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-5-5",
+      "type": "Bridge",
+      "leftValue": 5,
+      "rightValue": 5,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-6-6",
+      "type": "Bridge",
+      "leftValue": 6,
+      "rightValue": 6,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-7-7",
+      "type": "Bridge",
+      "leftValue": 7,
+      "rightValue": 7,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-8-8",
+      "type": "Bridge",
+      "leftValue": 8,
+      "rightValue": 8,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "bridge-9-9",
+      "type": "Bridge",
+      "leftValue": 9,
+      "rightValue": 9,
+      "nameKey": "card.bridge.name",
+      "descriptionKey": "card.bridge.desc"
+    },
+    {
+      "id": "nuclear-0-1",
+      "type": "Nuclear",
+      "leftValue": 0,
+      "rightValue": 1,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-0-6",
+      "type": "Nuclear",
+      "leftValue": 0,
+      "rightValue": 6,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-5-2",
+      "type": "Nuclear",
+      "leftValue": 5,
+      "rightValue": 2,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-5-7",
+      "type": "Nuclear",
+      "leftValue": 5,
+      "rightValue": 7,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-1-2",
+      "type": "Nuclear",
+      "leftValue": 1,
+      "rightValue": 2,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-1-7",
+      "type": "Nuclear",
+      "leftValue": 1,
+      "rightValue": 7,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-6-3",
+      "type": "Nuclear",
+      "leftValue": 6,
+      "rightValue": 3,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-6-8",
+      "type": "Nuclear",
+      "leftValue": 6,
+      "rightValue": 8,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-2-3",
+      "type": "Nuclear",
+      "leftValue": 2,
+      "rightValue": 3,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-2-8",
+      "type": "Nuclear",
+      "leftValue": 2,
+      "rightValue": 8,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-7-4",
+      "type": "Nuclear",
+      "leftValue": 7,
+      "rightValue": 4,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-7-9",
+      "type": "Nuclear",
+      "leftValue": 7,
+      "rightValue": 9,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-3-4",
+      "type": "Nuclear",
+      "leftValue": 3,
+      "rightValue": 4,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-3-9",
+      "type": "Nuclear",
+      "leftValue": 3,
+      "rightValue": 9,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-8-5",
+      "type": "Nuclear",
+      "leftValue": 8,
+      "rightValue": 5,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-8-0",
+      "type": "Nuclear",
+      "leftValue": 8,
+      "rightValue": 0,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-4-0",
+      "type": "Nuclear",
+      "leftValue": 4,
+      "rightValue": 0,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-4-5",
+      "type": "Nuclear",
+      "leftValue": 4,
+      "rightValue": 5,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-9-1",
+      "type": "Nuclear",
+      "leftValue": 9,
+      "rightValue": 1,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "nuclear-9-6",
+      "type": "Nuclear",
+      "leftValue": 9,
+      "rightValue": 6,
+      "nameKey": "card.nuclear.name",
+      "descriptionKey": "card.nuclear.desc"
+    },
+    {
+      "id": "castle-0-2",
+      "type": "Castle",
+      "leftValue": 0,
+      "rightValue": 2,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-0-7",
+      "type": "Castle",
+      "leftValue": 0,
+      "rightValue": 7,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-5-4",
+      "type": "Castle",
+      "leftValue": 5,
+      "rightValue": 4,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-5-9",
+      "type": "Castle",
+      "leftValue": 5,
+      "rightValue": 9,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-1-3",
+      "type": "Castle",
+      "leftValue": 1,
+      "rightValue": 3,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-1-8",
+      "type": "Castle",
+      "leftValue": 1,
+      "rightValue": 8,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-6-0",
+      "type": "Castle",
+      "leftValue": 6,
+      "rightValue": 0,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-6-5",
+      "type": "Castle",
+      "leftValue": 6,
+      "rightValue": 5,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-2-4",
+      "type": "Castle",
+      "leftValue": 2,
+      "rightValue": 4,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-2-9",
+      "type": "Castle",
+      "leftValue": 2,
+      "rightValue": 9,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-7-1",
+      "type": "Castle",
+      "leftValue": 7,
+      "rightValue": 1,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-7-6",
+      "type": "Castle",
+      "leftValue": 7,
+      "rightValue": 6,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-3-0",
+      "type": "Castle",
+      "leftValue": 3,
+      "rightValue": 0,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-3-5",
+      "type": "Castle",
+      "leftValue": 3,
+      "rightValue": 5,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-8-2",
+      "type": "Castle",
+      "leftValue": 8,
+      "rightValue": 2,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-8-7",
+      "type": "Castle",
+      "leftValue": 8,
+      "rightValue": 7,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-4-1",
+      "type": "Castle",
+      "leftValue": 4,
+      "rightValue": 1,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-4-6",
+      "type": "Castle",
+      "leftValue": 4,
+      "rightValue": 6,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-9-3",
+      "type": "Castle",
+      "leftValue": 9,
+      "rightValue": 3,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "castle-9-8",
+      "type": "Castle",
+      "leftValue": 9,
+      "rightValue": 8,
+      "nameKey": "card.castle.name",
+      "descriptionKey": "card.castle.desc"
+    },
+    {
+      "id": "factory-0-3",
+      "type": "Factory",
+      "leftValue": 0,
+      "rightValue": 3,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-0-8",
+      "type": "Factory",
+      "leftValue": 0,
+      "rightValue": 8,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-5-3",
+      "type": "Factory",
+      "leftValue": 5,
+      "rightValue": 3,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-5-8",
+      "type": "Factory",
+      "leftValue": 5,
+      "rightValue": 8,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-1-4",
+      "type": "Factory",
+      "leftValue": 1,
+      "rightValue": 4,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-1-9",
+      "type": "Factory",
+      "leftValue": 1,
+      "rightValue": 9,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-6-4",
+      "type": "Factory",
+      "leftValue": 6,
+      "rightValue": 4,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-6-9",
+      "type": "Factory",
+      "leftValue": 6,
+      "rightValue": 9,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-2-0",
+      "type": "Factory",
+      "leftValue": 2,
+      "rightValue": 0,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-2-5",
+      "type": "Factory",
+      "leftValue": 2,
+      "rightValue": 5,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-7-0",
+      "type": "Factory",
+      "leftValue": 7,
+      "rightValue": 0,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-7-5",
+      "type": "Factory",
+      "leftValue": 7,
+      "rightValue": 5,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-3-1",
+      "type": "Factory",
+      "leftValue": 3,
+      "rightValue": 1,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-3-6",
+      "type": "Factory",
+      "leftValue": 3,
+      "rightValue": 6,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-8-1",
+      "type": "Factory",
+      "leftValue": 8,
+      "rightValue": 1,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-8-6",
+      "type": "Factory",
+      "leftValue": 8,
+      "rightValue": 6,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-4-2",
+      "type": "Factory",
+      "leftValue": 4,
+      "rightValue": 2,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-4-7",
+      "type": "Factory",
+      "leftValue": 4,
+      "rightValue": 7,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-9-2",
+      "type": "Factory",
+      "leftValue": 9,
+      "rightValue": 2,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "factory-9-7",
+      "type": "Factory",
+      "leftValue": 9,
+      "rightValue": 7,
+      "nameKey": "card.factory.name",
+      "descriptionKey": "card.factory.desc"
+    },
+    {
+      "id": "port-0-4",
+      "type": "Port",
+      "leftValue": 0,
+      "rightValue": 4,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-0-9",
+      "type": "Port",
+      "leftValue": 0,
+      "rightValue": 9,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-5-1",
+      "type": "Port",
+      "leftValue": 5,
+      "rightValue": 1,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-5-6",
+      "type": "Port",
+      "leftValue": 5,
+      "rightValue": 6,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-1-0",
+      "type": "Port",
+      "leftValue": 1,
+      "rightValue": 0,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-1-5",
+      "type": "Port",
+      "leftValue": 1,
+      "rightValue": 5,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-6-2",
+      "type": "Port",
+      "leftValue": 6,
+      "rightValue": 2,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-6-7",
+      "type": "Port",
+      "leftValue": 6,
+      "rightValue": 7,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-2-1",
+      "type": "Port",
+      "leftValue": 2,
+      "rightValue": 1,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-2-6",
+      "type": "Port",
+      "leftValue": 2,
+      "rightValue": 6,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-7-3",
+      "type": "Port",
+      "leftValue": 7,
+      "rightValue": 3,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-7-8",
+      "type": "Port",
+      "leftValue": 7,
+      "rightValue": 8,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-3-2",
+      "type": "Port",
+      "leftValue": 3,
+      "rightValue": 2,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-3-7",
+      "type": "Port",
+      "leftValue": 3,
+      "rightValue": 7,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-8-4",
+      "type": "Port",
+      "leftValue": 8,
+      "rightValue": 4,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-8-9",
+      "type": "Port",
+      "leftValue": 8,
+      "rightValue": 9,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-4-3",
+      "type": "Port",
+      "leftValue": 4,
+      "rightValue": 3,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-4-8",
+      "type": "Port",
+      "leftValue": 4,
+      "rightValue": 8,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-9-0",
+      "type": "Port",
+      "leftValue": 9,
+      "rightValue": 0,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    },
+    {
+      "id": "port-9-5",
+      "type": "Port",
+      "leftValue": 9,
+      "rightValue": 5,
+      "nameKey": "card.port.name",
+      "descriptionKey": "card.port.desc"
+    }
+  ]
+}
