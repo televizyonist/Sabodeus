@@ -52,6 +52,12 @@ public class DeckManager : MonoBehaviour
 
     public CardEntry SpawnCardToHand()
     {
+        if (handAreaTransform.childCount >= 4)
+        {
+            Debug.Log("Hand is full. Max 4 cards allowed.");
+            return null;
+        }
+
         var cardData = DrawCard();
         if (cardData == null)
         {
