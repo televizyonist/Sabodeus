@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class HandLayoutFanStyle : MonoBehaviour
 {
-    // Wider spacing so cards don't overlap
-    public float spacing = 1.5f;
-    // Higher curve to keep cards fully visible
-    public float curveHeight = 0.25f;
-    // Rotation independent from spacing for a consistent fan
-    public float rotationScale = 7f;
+    // Wider spacing so cards barely overlap
+    public float spacing = 1.75f;
+    // Higher curve so cards stay visible
+    public float curveHeight = 0.3f;
+    // Slightly stronger rotation for a fuller fan
+    public float rotationScale = 8f;
     // Keep cards one unit apart on the Z axis
     public float depthOffset = 1f;
-    // Raise the whole hand to fit on screen
-    public float verticalShift = 1f;
+    // Raise the whole hand so cards are fully visible
+    public float verticalShift = 1.5f;
 
     public void UpdateLayout()
     {

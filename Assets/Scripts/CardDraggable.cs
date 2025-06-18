@@ -11,7 +11,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Vector3 previousPos;
     public float rotationMultiplier = 30f;
     public float hoverHeight = 0.5f;
-    public float hoverForward = 1.5f;
+    public float hoverForward = 2f;
     private bool isHovered = false;
 
     void Start()
@@ -27,7 +27,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         originalPos = transform.localPosition;
         Vector3 pos = originalPos;
         pos.y += hoverHeight;
-        pos.z += hoverForward;
+        pos.z = hoverForward;
         transform.localPosition = pos;
     }
 
