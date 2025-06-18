@@ -5,7 +5,7 @@ public class CardDraggable : MonoBehaviour
     private Vector3 offset;
     private Camera cam;
     private bool isDragging = false;
-    private float originalZ;
+    private Vector3 originalPos;
     private HandLayoutFanStyle layout;
     private Vector3 previousPos;
     public float rotationMultiplier = 30f;
@@ -19,18 +19,17 @@ public class CardDraggable : MonoBehaviour
     void OnMouseEnter()
     {
         if (isDragging) return;
-        originalZ = transform.localPosition.z;
-        Vector3 pos = transform.localPosition;
-        pos.z = 0.1f;
+        originalPos = transform.localPosition;
+        Vector3 pos = originalPos;
+        pos.y += 0.5f;
+        pos.z = 0.5f;
         transform.localPosition = pos;
     }
 
     void OnMouseExit()
     {
         if (isDragging) return;
-        Vector3 pos = transform.localPosition;
-        pos.z = originalZ;
-        transform.localPosition = pos;
+        transform.localPosition = originalPos;
     }
 
     void OnMouseDown()

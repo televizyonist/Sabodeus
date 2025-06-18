@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class HandLayoutFanStyle : MonoBehaviour
 {
-    public float spacing = 1f;
-    public float curveHeight = 0.3f;
+    // Wider spacing to reduce overlap
+    public float spacing = 1.25f;
+    // Slightly flatter curve for a smoother fan
+    public float curveHeight = 0.2f;
     public float rotationScale = 5f;
-    public float depthOffset = 0.01f;
+    // Keep cards one unit apart on the Z axis
+    public float depthOffset = 1f;
     public float verticalShift = 0f;
 
     public void UpdateLayout()
