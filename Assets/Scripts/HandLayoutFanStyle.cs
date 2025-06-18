@@ -12,7 +12,6 @@ public class HandLayoutFanStyle : MonoBehaviour
     {
         int count = transform.childCount;
         if (count == 0) return;
-
         for (int i = 0; i < count; i++)
         {
             Transform card = transform.GetChild(i);
