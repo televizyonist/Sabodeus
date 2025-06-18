@@ -10,7 +10,6 @@ public class HandLayoutFanStyle : MonoBehaviour
     // Keep cards one unit apart on the Z axis
     public float depthOffset = 1f;
     public float verticalShift = 0f;
-
     public void UpdateLayout()
     {
         int count = transform.childCount;

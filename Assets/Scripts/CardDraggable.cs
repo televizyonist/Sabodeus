@@ -39,6 +39,13 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerDown(PointerEventData eventData)
     {
         isDragging = true;
+        originalParent = transform.parent;
+        if (layout != null && originalParent == layout.transform)
+        {
+            transform.SetParent(null, true);
+            layout.UpdateLayout();
+        }
+
         Vector3 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
         offset = transform.position - new Vector3(mouseWorld.x, mouseWorld.y, transform.position.z);
         previousPos = transform.position;
