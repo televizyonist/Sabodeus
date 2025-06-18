@@ -66,7 +66,7 @@ public class DeckManager : MonoBehaviour
         }
 
         GameObject cardObj = Instantiate(cardPrefab, handAreaTransform);
-        cardObj.transform.localScale = Vector3.one;
+        cardObj.transform.localScale = Vector3.one * 0.8f;
         cardObj.transform.localPosition = Vector3.zero;
 
         var display = cardObj.GetComponent<CardDisplay>();
