@@ -7,6 +7,8 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Camera cam;
     private bool isDragging = false;
     private Vector3 originalPos;
+    // Remember original parent so the card can be returned after dragging
+    private Transform originalParent;
     private HandLayoutFanStyle layout;
     private Vector3 previousPos;
     private Transform originalParent;
@@ -70,6 +72,10 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         isDragging = false;
         isHovered = false;
         transform.rotation = Quaternion.identity;
+        if (originalParent != null)
+        {
+            transform.SetParent(originalParent, true);
+        }
         layout?.UpdateLayout();
     }
 }
