@@ -7,7 +7,6 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Camera cam;
     private bool isDragging = false;
     private Vector3 originalPos;
-    private Transform originalParent;
     private HandLayoutFanStyle layout;
     private Vector3 previousPos;
     public float rotationMultiplier = 30f;
@@ -23,19 +22,17 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isDragging || isHovered) return;
-        isHovered = true;
+        if (isDragging) return;
         originalPos = transform.localPosition;
         Vector3 pos = originalPos;
-        pos.y += hoverHeight;
-        pos.z = hoverForward;
+        pos.y += 0.5f;
+        pos.z = 0.5f;
         transform.localPosition = pos;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (isDragging || !isHovered) return;
-        isHovered = false;
+        if (isDragging) return;
         transform.localPosition = originalPos;
     }
 
