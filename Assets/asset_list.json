@@ -57,6 +57,7 @@
         "Assets/Scripts/LocalizationManager.cs",
         "Assets/Scripts/ExitGameHandler.cs",
         "Assets/Scenes/SampleScene.unity",
+        "Assets/Scenes/MainMenuScene.unity",
         "Assets/Scripts/RelayManager.cs",
         "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader",
         "Assets/Resources/CardIcons/Nuclear.png",
