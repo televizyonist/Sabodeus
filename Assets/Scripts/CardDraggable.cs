@@ -1,57 +1,100 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
-    private CanvasGroup canvasGroup;
-    private Vector3 originalPosition;
+    private Vector3 offset;
+    private float dragDistance;
+    private Camera cam;
+    private bool isDragging = false;
+    private Vector3 originalPos;
     private Transform originalParent;
-    private SlotController previousSlot;
+    private HandLayoutFanStyle layout;
+    private Vector3 previousPos;
+    public float rotationMultiplier = 30f;
+    public float hoverHeight = 0.5f;
+    public float hoverForward = 2f;
+    private bool isHovered = false;
 
-    private void Awake()
+    void Start()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
+        cam = Camera.main;
+        layout = transform.parent?.GetComponent<HandLayoutFanStyle>();
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        originalPosition = transform.position;
-        originalParent = transform.parent;
-        canvasGroup.blocksRaycasts = false;
+        if (isDragging || isHovered) return;
+        isHovered = true;
+        layout?.SpreadOut();
+        CardPreviewManager.Instance?.ShowPreview(gameObject);
+    }
 
-        if (previousSlot != null)
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!isHovered || isDragging) return;
+        isHovered = false;
+        layout?.Restore();
+        CardPreviewManager.Instance?.HidePreview();
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isDragging = true;
+        isHovered = false;
+        CardPreviewManager.Instance?.HidePreview();
+        originalParent = transform.parent;
+
+        if (layout != null && originalParent == layout.transform)
         {
-            previousSlot.ClearSlot();
-            previousSlot = null;
+            transform.SetParent(null, true);
+            layout.UpdateLayout();
         }
+
+        dragDistance = cam.WorldToScreenPoint(transform.position).z;
+        Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
+        offset = transform.position - mouseWorld;
+        previousPos = transform.position;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition;
+        if (!isDragging) return;
+
+        Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
+        Vector3 target = mouseWorld + offset;
+        Vector3 delta = target - previousPos;
+        float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg * rotationMultiplier;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * 10f);
+        transform.position = target;
+        previousPos = target;
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = true;
+        isDragging = false;
+        isHovered = false;
+        transform.rotation = Quaternion.identity;
 
-        // Raycast ile slot bul
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        // 💡 Daha sağlam yöntem: pointerEnter üzerinden slotı bul
+        if (eventData.pointerEnter != null)
         {
-            SlotController slot = hit.collider.GetComponent<SlotController>();
-            if (slot != null && !slot.isOccupied)
+            SlotController slot = eventData.pointerEnter.GetComponent<SlotController>();
+            if (slot != null && !slot.IsOccupied)
             {
-                transform.position = slot.transform.position;
-                transform.SetParent(slot.transform);
-                slot.AssignCard(gameObject);
-                previousSlot = slot;
+                transform.SetParent(slot.transform, true);
+                transform.localPosition = Vector3.zero;
+                slot.SetCard(gameObject);
+                layout?.UpdateLayout();
+                CardPreviewManager.Instance?.HidePreview();
                 return;
             }
         }
 
-        // Snap başarısızsa geri dön
-        transform.position = originalPosition;
-        transform.SetParent(originalParent);
+        // Uygun slot yok → eski konuma dön
+        transform.SetParent(originalParent, true);
+        transform.localPosition = Vector3.zero;
+        layout?.UpdateLayout();
+        CardPreviewManager.Instance?.HidePreview();
     }
 }
