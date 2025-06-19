@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     private Vector3 offset;
+    private float dragDistance;
     private Camera cam;
     private bool isDragging = false;
     private Vector3 originalPos;
@@ -48,8 +49,9 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             layout.UpdateLayout();
         }
 
-        Vector3 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
-        offset = transform.position - new Vector3(mouseWorld.x, mouseWorld.y, transform.position.z);
+        dragDistance = cam.WorldToScreenPoint(transform.position).z;
+        Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
+        offset = transform.position - mouseWorld;
         previousPos = transform.position;
     }
 
@@ -57,8 +59,8 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (!isDragging) return;
 
-        Vector3 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 target = new Vector3(mouseWorld.x + offset.x, mouseWorld.y + offset.y, transform.position.z);
+        Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
+        Vector3 target = mouseWorld + offset;
         Vector3 delta = target - previousPos;
         float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg * rotationMultiplier;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * 10f);
