@@ -14,6 +14,8 @@ public class RelayManager : MonoBehaviour
     public UnityEvent<string> OnRelayCreated;
     public int maxPlayers = 4;
 
+    [SerializeField] private JoinAndCreateUI cachedUI;
+
     private NetworkManager netManager;
     private UnityTransport transport;
 
@@ -22,6 +24,8 @@ public class RelayManager : MonoBehaviour
         await Initialize();
         netManager = NetworkManager.Singleton;
         transport = netManager?.NetworkConfig.NetworkTransport as UnityTransport;
+        if (cachedUI == null)
+            cachedUI = FindObjectOfType<JoinAndCreateUI>();
     }
 
     private async Task Initialize()
@@ -113,9 +117,11 @@ public class RelayManager : MonoBehaviour
 
     private void ShowFullRoomWarning()
     {
-        var ui = FindObjectOfType<JoinAndCreateUI>();
-        if (ui?.fullRoomWarning != null)
-            ui.fullRoomWarning.SetActive(true);
+        if (cachedUI == null)
+            cachedUI = FindObjectOfType<JoinAndCreateUI>();
+
+        if (cachedUI?.fullRoomWarning != null)
+            cachedUI.fullRoomWarning.SetActive(true);
         else
             Debug.LogWarning("Uyarı kutusu bulunamadı.");
     }
