@@ -78,8 +78,8 @@ public class CityAreaManager : MonoBehaviour
         obj.transform.SetParent(slotParent, false);
 
         SlotController ctrl = obj.AddComponent<SlotController>();
-        ctrl.Initialize(this, rightSide, index);
-        ctrl.image = obj.GetComponent<Image>();
+        Image img = obj.GetComponent<Image>();
+        ctrl.Initialize(this, rightSide, index, img);
         return ctrl;
     }
 
