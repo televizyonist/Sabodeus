@@ -1,4 +1,5 @@
 using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ public class CardDisplay : MonoBehaviour
 
     private CardEntry data;
 
+    private static readonly Dictionary<string, Sprite> iconCache = new();
+
     public void Initialize(CardEntry entry)
     {
         data = entry;
@@ -25,7 +28,13 @@ public class CardDisplay : MonoBehaviour
         leftValueText.text = entry.leftValue.ToString();
         rightValueText.text = entry.rightValue.ToString();
 
-        Sprite icon = Resources.Load<Sprite>($"CardIcons/{entry.type}");
+        if (!iconCache.TryGetValue(entry.type, out Sprite icon))
+        {
+            icon = Resources.Load<Sprite>($"CardIcons/{entry.type}");
+            if (icon != null)
+                iconCache[entry.type] = icon;
+        }
+
         if (icon != null)
         {
             typeIcon.sprite = icon;

@@ -8,15 +8,21 @@ public class DeckManager : MonoBehaviour
     public Transform spawnPoint;
     public Transform handAreaTransform;
 
+    [SerializeField] private TextAsset cardDataAsset;
+
     public List<CardEntry> fullDeck = new();
     private Stack<CardEntry> drawPile = new();
+    private HandLayoutFanStyle handLayout;
 
     public void LoadDeckFromJson()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>("sabodeus_card_data");
+        TextAsset jsonFile = cardDataAsset;
+        if (jsonFile == null)
+            jsonFile = Resources.Load<TextAsset>("sabodeus_card_data");
+
         if (jsonFile == null)
         {
-            Debug.LogError("JSON file not found in Resources folder!");
+            Debug.LogError("JSON file not found!");
             return;
         }
 
@@ -77,20 +83,16 @@ public class DeckManager : MonoBehaviour
             Debug.LogWarning("CardDisplay script not found on prefab.");
 
         // 🔄 Fan stili dizilim için doğru scripti çağır
-        var layout = handAreaTransform.GetComponent<HandLayoutFanStyle>();
-        if (layout != null)
-            layout.UpdateLayout();
+        if (handLayout != null)
+            handLayout.UpdateLayout();
 
         return cardData;
     }
 
     private void Start()
     {
+        handLayout = handAreaTransform.GetComponent<HandLayoutFanStyle>();
         LoadDeckFromJson();
-
-        TextAsset jsonFile = Resources.Load<TextAsset>("sabodeus_card_data");
-        Debug.Log("Yüklenen JSON içeriği:\n" + jsonFile.text);
-
         InitializeDrawPile();
 
         var cardData = SpawnCardToHand();
