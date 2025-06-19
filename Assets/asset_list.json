@@ -56,6 +56,7 @@
         "Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf",
         "Assets/Scripts/LocalizationManager.cs",
         "Assets/Scripts/ExitGameHandler.cs",
+        "Assets/Scripts/StartGameHandler.cs",
         "Assets/Scenes/SampleScene.unity",
         "Assets/Scenes/MainMenuScene.unity",
         "Assets/Scripts/RelayManager.cs",
