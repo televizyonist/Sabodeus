@@ -11,6 +11,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Transform originalParent;
     private HandLayoutFanStyle layout;
     private Vector3 previousPos;
+    private CanvasGroup canvasGroup;
     public float rotationMultiplier = 30f;
     public float hoverHeight = 0.5f;
     public float hoverForward = 2f;
@@ -20,6 +21,9 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         cam = Camera.main;
         layout = transform.parent?.GetComponent<HandLayoutFanStyle>();
+        canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+            canvasGroup = gameObject.AddComponent<CanvasGroup>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -44,6 +48,8 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         isHovered = false;
         CardPreviewManager.Instance?.HidePreview();
         originalParent = transform.parent;
+        if (canvasGroup != null)
+            canvasGroup.blocksRaycasts = false;
 
         if (layout != null && originalParent == layout.transform)
         {
@@ -75,6 +81,8 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         isDragging = false;
         isHovered = false;
         transform.rotation = Quaternion.identity;
+        if (canvasGroup != null)
+            canvasGroup.blocksRaycasts = true;
 
         // 💡 Daha sağlam yöntem: pointerEnter üzerinden slotı bul
         if (eventData.pointerEnter != null)
