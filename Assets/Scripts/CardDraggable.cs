@@ -48,14 +48,25 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         isHovered = false;
         CardPreviewManager.Instance?.HidePreview();
         originalParent = transform.parent;
-        if (canvasGroup != null)
-            canvasGroup.blocksRaycasts = false;
 
-        if (layout != null && originalParent == layout.transform)
+        // If this card was sitting in a slot, clear that slot so it can accept
+        // a new card while we drag this one around.
+        SlotController parentSlot = originalParent != null
+            ? originalParent.GetComponent<SlotController>()
+            : null;
+        if (parentSlot != null)
+        {
+            parentSlot.ClearSlot();
+            transform.SetParent(null, true);
+        }
+        else if (layout != null && originalParent == layout.transform)
         {
             transform.SetParent(null, true);
             layout.UpdateLayout();
         }
+
+        if (canvasGroup != null)
+            canvasGroup.blocksRaycasts = false;
 
         dragDistance = cam.WorldToScreenPoint(transform.position).z;
         Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
