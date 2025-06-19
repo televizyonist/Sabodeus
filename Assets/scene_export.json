@@ -1695,82 +1695,6 @@
             ]
         },
         {
-            "name": "EventSystem",
-            "tag": "Untagged",
-            "layer": "Default",
-            "parent": "",
-            "position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 1.0
-            },
-            "components": [
-                "Transform",
-                "EventSystem",
-                "StandaloneInputModule"
-            ]
-        },
-        {
-            "name": "PlayerEntry",
-            "tag": "Untagged",
-            "layer": "Default",
-            "parent": "",
-            "position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": -11.964690208435059
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 1.0
-            },
-            "components": [
-                "RectTransform"
-            ]
-        },
-        {
-            "name": "PlayerNameText",
-            "tag": "Untagged",
-            "layer": "UI",
-            "parent": "PlayerEntry",
-            "position": {
-                "x": 10.0,
-                "y": -30.0,
-                "z": 0.0
-            },
-            "rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 1.0
-            },
-            "components": [
-                "RectTransform",
-                "CanvasRenderer",
-                "TextMeshProUGUI"
-            ]
-        },
-        {
             "name": "LobbyPlayerList",
             "tag": "Untagged",
             "layer": "Default",
@@ -1823,6 +1747,85 @@
             ]
         },
         {
+            "name": "CardDeckVisual",
+            "tag": "Untagged",
+            "layer": "Default",
+            "parent": "",
+            "position": {
+                "x": -7.860000133514404,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.30000001192092898,
+                "y": 0.30000001192092898,
+                "z": 0.30000001192092898
+            },
+            "components": [
+                "Transform",
+                "CardDeckVisual"
+            ]
+        },
+        {
+            "name": "Canvas",
+            "tag": "Untagged",
+            "layer": "UI",
+            "parent": "CardDeckVisual",
+            "position": {
+                "x": -7.860000133514404,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.009999999776482582,
+                "y": 0.009999999776482582,
+                "z": 0.009999999776482582
+            },
+            "components": [
+                "RectTransform",
+                "Canvas",
+                "CanvasScaler",
+                "GraphicRaycaster"
+            ]
+        },
+        {
+            "name": "Image",
+            "tag": "Untagged",
+            "layer": "UI",
+            "parent": "Canvas",
+            "position": {
+                "x": -7.860000133514404,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "components": [
+                "RectTransform",
+                "CanvasRenderer",
+                "Image",
+                "BoxCollider2D"
+            ]
+        },
+        {
             "name": "GameManager",
             "tag": "Untagged",
             "layer": "Default",
@@ -1848,7 +1851,7 @@
             ]
         },
         {
-            "name": "CardSpawn",
+            "name": "EventSystem",
             "tag": "Untagged",
             "layer": "Default",
             "parent": "",
@@ -1868,7 +1871,184 @@
                 "z": 1.0
             },
             "components": [
+                "Transform",
+                "EventSystem",
+                "StandaloneInputModule"
+            ]
+        },
+        {
+            "name": "PlayerEntry",
+            "tag": "Untagged",
+            "layer": "Default",
+            "parent": "",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "components": [
+                "RectTransform"
+            ]
+        },
+        {
+            "name": "PlayerNameText",
+            "tag": "Untagged",
+            "layer": "UI",
+            "parent": "PlayerEntry",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "components": [
+                "RectTransform",
+                "CanvasRenderer",
+                "TextMeshProUGUI"
+            ]
+        },
+        {
+            "name": "CardSpawn",
+            "tag": "Untagged",
+            "layer": "Default",
+            "parent": "",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "components": [
                 "Transform"
+            ]
+        },
+        {
+            "name": "CardHandArea",
+            "tag": "Untagged",
+            "layer": "Default",
+            "parent": "",
+            "position": {
+                "x": 0.0,
+                "y": -4.300000190734863,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "components": [
+                "Transform",
+                "HandLayoutFanStyle"
+            ]
+        },
+        {
+            "name": "CityManagerArea",
+            "tag": "Untagged",
+            "layer": "Default",
+            "parent": "",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "components": [
+                "Transform",
+                "CityAreaManager"
+            ]
+        },
+        {
+            "name": "CityCanvas",
+            "tag": "Untagged",
+            "layer": "Default",
+            "parent": "",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 3.0,
+                "y": 3.0,
+                "z": 3.0
+            },
+            "components": [
+                "RectTransform"
+            ]
+        },
+        {
+            "name": "Canvas",
+            "tag": "Untagged",
+            "layer": "Default",
+            "parent": "CityCanvas",
+            "position": {
+                "x": 1531.5,
+                "y": 910.5,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "components": [
+                "RectTransform",
+                "Canvas",
+                "CanvasScaler",
+                "GraphicRaycaster"
             ]
         }
     ]

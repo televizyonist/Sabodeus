@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,9 +6,12 @@ public class CityAreaManager : MonoBehaviour
 {
     public Sprite cityCenterSprite;
     public Sprite slotSprite;
-    public float horizontalSpacing = 1.2f;
-    public float verticalOffset = -0.2f;
-    public int baseSortingOrder = 10;
+    public float horizontalSpacing = 0.7f;
+    public float verticalOffset = -0.15f;
+    public Vector2 elementSize = new Vector2(0.6f, 0.9f); // 2:3 oran
+    public int baseSortingOrder = 100;
+
+    public Transform slotParent; // World Space Canvas altına atanacak parent
 
     private readonly List<SlotController> rightSlots = new();
     private readonly List<SlotController> leftSlots = new();
@@ -20,21 +23,19 @@ public class CityAreaManager : MonoBehaviour
 
     private void BuildLayout()
     {
-        Canvas canvas = GetComponent<Canvas>();
-        if (canvas == null)
+        if (slotParent == null)
         {
-            canvas = gameObject.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.WorldSpace;
+            Debug.LogError("CityAreaManager: slotParent atanmamış!");
+            return;
         }
 
-        if (GetComponent<CanvasScaler>() == null)
-            gameObject.AddComponent<CanvasScaler>();
-        if (GetComponent<GraphicRaycaster>() == null)
-            gameObject.AddComponent<GraphicRaycaster>();
-
+        // Şehir merkezi oluştur
         GameObject center = CreateUIElement("CityCenter", cityCenterSprite, baseSortingOrder + 1);
-        center.transform.SetParent(transform, false);
+        center.transform.SetParent(slotParent, false);
+        center.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        center.GetComponent<RectTransform>().sizeDelta = elementSize;
 
+        // Slotları oluştur
         for (int i = 0; i < 5; i++)
         {
             SlotController right = CreateSlot(true, i);
@@ -54,13 +55,19 @@ public class CityAreaManager : MonoBehaviour
 
     private GameObject CreateUIElement(string name, Sprite sprite, int order)
     {
-        GameObject obj = new GameObject(name, typeof(RectTransform), typeof(Canvas), typeof(CanvasRenderer), typeof(Image));
-        Canvas c = obj.GetComponent<Canvas>();
-        c.renderMode = RenderMode.WorldSpace;
-        c.overrideSorting = true;
-        c.sortingOrder = order;
+        GameObject obj = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        RectTransform rect = obj.GetComponent<RectTransform>();
+        rect.sizeDelta = elementSize;
         Image img = obj.GetComponent<Image>();
         img.sprite = sprite;
+        img.raycastTarget = true;
+        img.preserveAspect = true;
+
+        Canvas objCanvas = obj.AddComponent<Canvas>();
+        objCanvas.overrideSorting = true;
+        objCanvas.sortingOrder = order;
+        objCanvas.renderMode = RenderMode.WorldSpace;
+
         return obj;
     }
 
@@ -68,7 +75,7 @@ public class CityAreaManager : MonoBehaviour
     {
         string n = (rightSide ? "RightSlot_" : "LeftSlot_") + index;
         GameObject obj = CreateUIElement(n, slotSprite, baseSortingOrder - index);
-        obj.transform.SetParent(transform, false);
+        obj.transform.SetParent(slotParent, false);
 
         SlotController ctrl = obj.AddComponent<SlotController>();
         ctrl.Initialize(this, rightSide, index);

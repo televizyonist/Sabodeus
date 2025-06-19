@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\LobbyPlayerListUI.cs" />
     <Compile Include="Assets\Scripts\CardDisplay.cs" />
     <Compile Include="Assets\Scripts\JoinAndCreateUI.cs" />
+    <Compile Include="Assets\Scripts\StartGameHandler.cs" />
     <Compile Include="Assets\Scripts\CityAreaManager.cs" />
     <Compile Include="Assets\Scripts\DeckManager.cs" />
     <Compile Include="Assets\Scripts\CardPreviewManager.cs" />

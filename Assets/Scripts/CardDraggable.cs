@@ -1,85 +1,57 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class CardDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private Vector3 offset;
-    private float dragDistance;
-    private Camera cam;
-    private bool isDragging = false;
-    private Vector3 originalPos;
-    // Remember original parent so the card can be returned after dragging
+    private CanvasGroup canvasGroup;
+    private Vector3 originalPosition;
     private Transform originalParent;
-    private HandLayoutFanStyle layout;
-    private Vector3 previousPos;
-    public float rotationMultiplier = 30f;
-    public float hoverHeight = 0.5f;
-    public float hoverForward = 2f;
-    private bool isHovered = false;
+    private SlotController previousSlot;
 
-    void Start()
+    private void Awake()
     {
-        cam = Camera.main;
-        layout = transform.parent?.GetComponent<HandLayoutFanStyle>();
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        if (isDragging || isHovered) return;
-        isHovered = true;
-        layout?.SpreadOut();
-        CardPreviewManager.Instance?.ShowPreview(gameObject);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (!isHovered || isDragging) return;
-        isHovered = false;
-        layout?.Restore();
-        CardPreviewManager.Instance?.HidePreview();
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        isDragging = true;
-        isHovered = false;
-        CardPreviewManager.Instance?.HidePreview();
+        originalPosition = transform.position;
         originalParent = transform.parent;
-        if (layout != null && originalParent == layout.transform)
-        {
-            transform.SetParent(null, true);
-            layout.UpdateLayout();
-        }
+        canvasGroup.blocksRaycasts = false;
 
-        dragDistance = cam.WorldToScreenPoint(transform.position).z;
-        Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
-        offset = transform.position - mouseWorld;
-        previousPos = transform.position;
+        if (previousSlot != null)
+        {
+            previousSlot.ClearSlot();
+            previousSlot = null;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!isDragging) return;
-
-        Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
-        Vector3 target = mouseWorld + offset;
-        Vector3 delta = target - previousPos;
-        float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg * rotationMultiplier;
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * 10f);
-        transform.position = target;
-        previousPos = target;
+        transform.position = Input.mousePosition;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnEndDrag(PointerEventData eventData)
     {
-        isDragging = false;
-        isHovered = false;
-        transform.rotation = Quaternion.identity;
-        if (originalParent != null)
+        canvasGroup.blocksRaycasts = true;
+
+        // Raycast ile slot bul
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            transform.SetParent(originalParent, true);
+            SlotController slot = hit.collider.GetComponent<SlotController>();
+            if (slot != null && !slot.isOccupied)
+            {
+                transform.position = slot.transform.position;
+                transform.SetParent(slot.transform);
+                slot.AssignCard(gameObject);
+                previousSlot = slot;
+                return;
+            }
         }
-        layout?.UpdateLayout();
-        CardPreviewManager.Instance?.HidePreview();
+
+        // Snap başarısızsa geri dön
+        transform.position = originalPosition;
+        transform.SetParent(originalParent);
     }
 }
