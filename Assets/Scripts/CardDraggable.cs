@@ -24,18 +24,12 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isDragging) return;
-        originalPos = transform.localPosition;
-        Vector3 pos = originalPos;
-        pos.y += 0.5f;
-        pos.z = 0.5f;
-        transform.localPosition = pos;
+        // Hover effect disabled
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (isDragging) return;
-        transform.localPosition = originalPos;
+        // Hover effect disabled
     }
 
     public void OnPointerDown(PointerEventData eventData)
