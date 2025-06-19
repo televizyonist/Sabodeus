@@ -42,6 +42,8 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerDown(PointerEventData eventData)
     {
         isDragging = true;
+        isHovered = false;
+        CardPreviewManager.Instance?.HidePreview();
         originalParent = transform.parent;
         if (layout != null && originalParent == layout.transform)
         {
