@@ -2662,6 +2662,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 9162908024663301388, guid: 16292b10b0998674aa33097b39c6a83f, type: 3}
   spawnPoint: {fileID: 964810864}
   handAreaTransform: {fileID: 1026654407}
+  cardDataAsset: {fileID: 0}
   fullDeck:
   - id: 
     type: 
@@ -6018,8 +6019,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1355e849608f4183a97e562af0e89f19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cityCenterSprite: {fileID: 0}
-  slotSprite: {fileID: 21300000, guid: 9656df32d02c75149b2a14f6de42027f, type: 3}
+  cityCenterSprite: {fileID: 21300000, guid: 1ba8af7a0c7acaf45971d7151e58f332, type: 3}
+  slotSprite: {fileID: 21300000, guid: 2d069557f6882964887c1e12427f7341, type: 3}
   horizontalSpacing: 0.3
   verticalOffset: 0
   elementSize: {x: 0.6, y: 0.9}
@@ -7293,6 +7294,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   maxPlayers: 4
+  cachedUI: {fileID: 0}
 --- !u!4 &2009079641
 Transform:
   m_ObjectHideFlags: 0
