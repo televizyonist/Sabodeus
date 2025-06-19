@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\LobbyPlayerListUI.cs" />
     <Compile Include="Assets\Scripts\CardDisplay.cs" />
     <Compile Include="Assets\Scripts\JoinAndCreateUI.cs" />
+    <Compile Include="Assets\Scripts\CityAreaManager.cs" />
     <Compile Include="Assets\Scripts\DeckManager.cs" />
     <Compile Include="Assets\Scripts\CardPreviewManager.cs" />
     <Compile Include="Assets\Scripts\CardEntry.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\Scripts\HandLayoutFanStyle.cs" />
     <Compile Include="Assets\Scripts\LobbyPlayerListManager.cs" />
     <Compile Include="Assets\Scripts\CreateGameManager.cs" />
+    <Compile Include="Assets\Scripts\SlotController.cs" />
     <Compile Include="Assets\Scripts\LocalizationManager.cs" />
     <Compile Include="Assets\Scripts\JoinGameManager.cs" />
     <Compile Include="Assets\Scripts\ExitGameHandler.cs" />
