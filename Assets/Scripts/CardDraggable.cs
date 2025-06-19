@@ -24,12 +24,18 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Hover effect disabled
+        if (isDragging || isHovered) return;
+        isHovered = true;
+        layout?.SpreadOut();
+        CardPreviewManager.Instance?.ShowPreview(gameObject);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Hover effect disabled
+        if (!isHovered || isDragging) return;
+        isHovered = false;
+        layout?.Restore();
+        CardPreviewManager.Instance?.HidePreview();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -70,5 +76,6 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             transform.SetParent(originalParent, true);
         }
         layout?.UpdateLayout();
+        CardPreviewManager.Instance?.HidePreview();
     }
 }
