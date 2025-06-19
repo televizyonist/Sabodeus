@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\StartGameHandler.cs" />
     <Compile Include="Assets\Scripts\CityAreaManager.cs" />
     <Compile Include="Assets\Scripts\DeckManager.cs" />
+    <Compile Include="Assets\Scripts\LocalizedText.cs" />
     <Compile Include="Assets\Scripts\CardPreviewManager.cs" />
     <Compile Include="Assets\Scripts\CardEntry.cs" />
     <Compile Include="Assets\Scripts\CardDeckVisual.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Scripts\CreateGameManager.cs" />
     <Compile Include="Assets\Scripts\SlotController.cs" />
     <Compile Include="Assets\Scripts\LocalizationManager.cs" />
+    <Compile Include="Assets\Scripts\SettingsMenuRuntime.cs" />
     <Compile Include="Assets\Scripts\JoinGameManager.cs" />
     <Compile Include="Assets\Scripts\ExitGameHandler.cs" />
     <Compile Include="Assets\Scripts\CardDraggable.cs" />
