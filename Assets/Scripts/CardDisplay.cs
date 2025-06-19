@@ -17,13 +17,21 @@ public class CardDisplay : MonoBehaviour
 
     private static readonly Dictionary<string, Sprite> iconCache = new();
 
+    private void OnEnable()
+    {
+        LocalizationManager.OnLanguageChanged += UpdateLocalization;
+    }
+
+    private void OnDisable()
+    {
+        LocalizationManager.OnLanguageChanged -= UpdateLocalization;
+    }
+
     public void Initialize(CardEntry entry)
     {
         data = entry;
 
-        // Localization
-        nameText.text = LocalizationManager.Get(entry.nameKey);
-        descriptionText.text = LocalizationManager.Get(entry.descriptionKey);
+        UpdateLocalization();
 
         leftValueText.text = entry.leftValue.ToString();
         rightValueText.text = entry.rightValue.ToString();
@@ -45,6 +53,15 @@ public class CardDisplay : MonoBehaviour
             Debug.LogWarning($"[CardDisplay] Icon not found for type: {entry.type}");
             typeIcon.enabled = false;
         }
+    }
+
+    private void UpdateLocalization()
+    {
+        if (data == null)
+            return;
+
+        nameText.text = LocalizationManager.Get(data.nameKey);
+        descriptionText.text = LocalizationManager.Get(data.descriptionKey);
     }
 
     public CardEntry GetData() => data;
