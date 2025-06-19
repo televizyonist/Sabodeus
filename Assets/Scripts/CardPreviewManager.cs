@@ -6,7 +6,7 @@ public class CardPreviewManager : MonoBehaviour
 
     [Header("Preview Settings")]
     public Vector3 previewPosition = Vector3.zero;
-    public float previewScale = 3f;
+    public float previewScale = 0.7f;
 
     private GameObject currentPreview;
 

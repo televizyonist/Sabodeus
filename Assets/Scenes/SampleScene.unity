@@ -3996,11 +3996,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b821bb48c89d7e468cf90c5982b9830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spacing: 1.5
+  spacing: 0.8
   curveHeight: 0
   rotationScale: 0
   depthOffset: 0
   verticalShift: 0
+  spreadMultiplier: 2
+  spreadDuration: 0.2
 --- !u!1 &1065721743
 GameObject:
   m_ObjectHideFlags: 0
