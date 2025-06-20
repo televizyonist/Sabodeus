@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class DeckManager : MonoBehaviour
 {
@@ -39,7 +38,8 @@ public class DeckManager : MonoBehaviour
             return;
         }
 
-        List<CardEntry> shuffled = fullDeck.OrderBy(x => Random.value).ToList();
+        List<CardEntry> shuffled = new(fullDeck);
+        Shuffle(shuffled);
         drawPile = new Stack<CardEntry>(shuffled);
         Debug.Log("Draw pile initialized with " + drawPile.Count + " cards.");
     }
@@ -99,6 +99,19 @@ public class DeckManager : MonoBehaviour
         if (cardData != null)
         {
             Debug.Log("Kart Eline Geldi: " + cardData.id + " → " + cardData.leftValue + "-" + cardData.rightValue);
+        }
+    }
+
+    private static readonly System.Random rng = new();
+
+    private static void Shuffle<T>(IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            (list[k], list[n]) = (list[n], list[k]);
         }
     }
 }
