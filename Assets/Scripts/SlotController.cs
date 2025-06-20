@@ -5,21 +5,29 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {
     public bool IsRightSide { get; private set; }
     public int Index { get; private set; }
-    public SpriteRenderer spriteRenderer;
+
+    public bool isOccupied = false;
+    public GameObject CurrentCard;
 
     private CityAreaManager manager;
-    private Color originalColor;
-    public void Initialize(CityAreaManager mgr, bool rightSide, int index, SpriteRenderer img)
-        spriteRenderer = img;
-        originalColor = spriteRenderer != null ? spriteRenderer.color : Color.white;
 
-        if (spriteRenderer != null)
-            spriteRenderer.color = originalColor;
-        if (isOccupied || spriteRenderer == null) return;
-        spriteRenderer.color = highlightColor;
-        if (spriteRenderer == null) return;
-        spriteRenderer.color = originalColor;
-        originalColor = image != null ? image.color : Color.white;
+    [Header("Highlighting")]
+    public Color highlightColor = Color.yellow;
+    private Color originalColor;
+    private Renderer slotRenderer;
+
+    public void Initialize(CityAreaManager mgr, bool rightSide, int index, Renderer rend)
+    {
+        manager = mgr;
+        IsRightSide = rightSide;
+        Index = index;
+
+        slotRenderer = rend;
+
+        if (slotRenderer != null)
+        {
+            originalColor = slotRenderer.material.color;
+        }
     }
 
     public void AssignCard(GameObject card)
@@ -28,29 +36,36 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         isOccupied = true;
         CurrentCard = card;
-        if (manager != null)
-        {
-            manager.OnSlotFilled(this);
-        }
+
+        // Snap to slot position
+        card.transform.position = transform.position;
+        card.transform.rotation = transform.rotation;
+
+        manager?.OnSlotFilled(this);
     }
 
     public void ClearSlot()
     {
         isOccupied = false;
         CurrentCard = null;
-        if (image != null)
-            image.color = originalColor;
+
+        if (slotRenderer != null)
+        {
+            slotRenderer.material.color = originalColor;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isOccupied || image == null) return;
-        image.color = highlightColor;
+        if (isOccupied || slotRenderer == null) return;
+
+        slotRenderer.material.color = highlightColor;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (image == null) return;
-        image.color = originalColor;
+        if (slotRenderer == null) return;
+
+        slotRenderer.material.color = originalColor;
     }
 }

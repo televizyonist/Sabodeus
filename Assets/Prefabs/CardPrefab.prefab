@@ -934,7 +934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ecc00d0d34a2a14eb4ac0dec4a89647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationMultiplier: 30
+  rotationMultiplier: 0
   hoverHeight: 0.5
   hoverForward: 2
 --- !u!65 &9042660780398633732

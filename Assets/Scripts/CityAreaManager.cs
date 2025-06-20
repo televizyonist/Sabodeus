@@ -2,17 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
 public class CityAreaManager : MonoBehaviour
 {
     public Sprite cityCenterSprite;
     public Sprite slotSprite;
     public float horizontalSpacing = 0.7f;
     public float verticalOffset = -0.15f;
-    public Vector2 elementSize = new Vector2(0.6f, 0.9f); // 2:3 oran
+    public Vector2 elementSize = new Vector2(0.6f, 0.9f); // Hedef boyut (2:3 oran)
     public int baseSortingOrder = 100;
 
-    public Transform slotParent; // Parent transform for slots
+    public Transform slotParent;
 
     private readonly List<SlotController> rightSlots = new();
     private readonly List<SlotController> leftSlots = new();
@@ -26,9 +25,9 @@ public class CityAreaManager : MonoBehaviour
     private void EnsureRaycaster()
     {
         Camera cam = Camera.main;
-        if (cam != null && cam.GetComponent<UnityEngine.EventSystems.PhysicsRaycaster>() == null)
+        if (cam != null && cam.GetComponent<PhysicsRaycaster>() == null)
         {
-            cam.gameObject.AddComponent<UnityEngine.EventSystems.PhysicsRaycaster>();
+            cam.gameObject.AddComponent<PhysicsRaycaster>();
         }
     }
 
@@ -40,13 +39,10 @@ public class CityAreaManager : MonoBehaviour
             return;
         }
 
-        // Şehir merkezi oluştur
-        GameObject center = CreateSpriteElement("CityCenter", cityCenterSprite, baseSortingOrder + 1);
+        GameObject center = CreateSpriteElement("CityCenter", cityCenterSprite, baseSortingOrder + 1, out _);
         center.transform.SetParent(slotParent, false);
         center.transform.localPosition = Vector3.zero;
-        center.transform.localScale = new Vector3(elementSize.x, elementSize.y, 1f);
 
-        // Slotları oluştur
         for (int i = 0; i < 5; i++)
         {
             SlotController right = CreateSlot(true, i);
@@ -64,24 +60,44 @@ public class CityAreaManager : MonoBehaviour
         UpdateSlotPositions();
     }
 
-    private GameObject CreateSpriteElement(string name, Sprite sprite, int order)
+    private GameObject CreateSpriteElement(string name, Sprite sprite, int order, out Vector2 worldSize)
     {
         GameObject obj = new GameObject(name);
         SpriteRenderer sr = obj.AddComponent<SpriteRenderer>();
         sr.sprite = sprite;
         sr.sortingOrder = order;
+
+        worldSize = Vector2.one;
+
+        if (sprite != null)
+        {
+            float pixelWidth = sprite.rect.width / sprite.pixelsPerUnit;
+            float pixelHeight = sprite.rect.height / sprite.pixelsPerUnit;
+
+            float scaleX = elementSize.x / pixelWidth;
+            float scaleY = elementSize.y / pixelHeight;
+            float uniformScale = Mathf.Min(scaleX, scaleY);
+
+            obj.transform.localScale = new Vector3(uniformScale, uniformScale, 1f);
+
+            // Gerçek dünya boyutunu hesapla
+            worldSize = new Vector2(pixelWidth * uniformScale, pixelHeight * uniformScale);
+        }
+
         return obj;
     }
 
     private SlotController CreateSlot(bool rightSide, int index)
     {
         string n = (rightSide ? "RightSlot_" : "LeftSlot_") + index;
-        GameObject obj = CreateSpriteElement(n, slotSprite, baseSortingOrder - index);
+
+        Vector2 worldSize;
+        GameObject obj = CreateSpriteElement(n, slotSprite, baseSortingOrder - index, out worldSize);
         obj.transform.SetParent(slotParent, false);
-        obj.transform.localScale = new Vector3(elementSize.x, elementSize.y, 1f);
 
         BoxCollider col = obj.AddComponent<BoxCollider>();
-        col.size = new Vector3(1f, 1f, 0.1f);
+        col.size = new Vector3(worldSize.x, worldSize.y, 0.1f);
+        col.center = Vector3.zero;
 
         SlotController ctrl = obj.AddComponent<SlotController>();
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
