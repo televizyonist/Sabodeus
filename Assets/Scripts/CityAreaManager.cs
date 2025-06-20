@@ -95,12 +95,22 @@ public class CityAreaManager : MonoBehaviour
         GameObject obj = CreateSpriteElement(n, slotSprite, baseSortingOrder - index, out worldSize);
         obj.transform.SetParent(slotParent, false);
 
+        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
         BoxCollider col = obj.AddComponent<BoxCollider>();
-        col.size = new Vector3(worldSize.x, worldSize.y, 0.1f);
-        col.center = Vector3.zero;
+        if (sr != null && sr.sprite != null)
+        {
+            Vector3 size = sr.sprite.bounds.size;
+            Vector3 center = sr.sprite.bounds.center;
+            col.size = new Vector3(size.x, size.y, 0.1f);
+            col.center = center;
+        }
+        else
+        {
+            col.size = new Vector3(worldSize.x, worldSize.y, 0.1f);
+            col.center = Vector3.zero;
+        }
 
         SlotController ctrl = obj.AddComponent<SlotController>();
-        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
         ctrl.Initialize(this, rightSide, index, sr);
         return ctrl;
     }
