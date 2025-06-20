@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 public class CityAreaManager : MonoBehaviour
 {
@@ -11,14 +12,24 @@ public class CityAreaManager : MonoBehaviour
     public Vector2 elementSize = new Vector2(0.6f, 0.9f); // 2:3 oran
     public int baseSortingOrder = 100;
 
-    public Transform slotParent; // World Space Canvas altına atanacak parent
+    public Transform slotParent; // Parent transform for slots
 
     private readonly List<SlotController> rightSlots = new();
     private readonly List<SlotController> leftSlots = new();
 
     private void Awake()
     {
+        EnsureRaycaster();
         BuildLayout();
+    }
+
+    private void EnsureRaycaster()
+    {
+        Camera cam = Camera.main;
+        if (cam != null && cam.GetComponent<UnityEngine.EventSystems.PhysicsRaycaster>() == null)
+        {
+            cam.gameObject.AddComponent<UnityEngine.EventSystems.PhysicsRaycaster>();
+        }
     }
 
     private void BuildLayout()
@@ -30,10 +41,10 @@ public class CityAreaManager : MonoBehaviour
         }
 
         // Şehir merkezi oluştur
-        GameObject center = CreateUIElement("CityCenter", cityCenterSprite, baseSortingOrder + 1);
+        GameObject center = CreateSpriteElement("CityCenter", cityCenterSprite, baseSortingOrder + 1);
         center.transform.SetParent(slotParent, false);
-        center.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        center.GetComponent<RectTransform>().sizeDelta = elementSize;
+        center.transform.localPosition = Vector3.zero;
+        center.transform.localScale = new Vector3(elementSize.x, elementSize.y, 1f);
 
         // Slotları oluştur
         for (int i = 0; i < 5; i++)
@@ -53,33 +64,28 @@ public class CityAreaManager : MonoBehaviour
         UpdateSlotPositions();
     }
 
-    private GameObject CreateUIElement(string name, Sprite sprite, int order)
+    private GameObject CreateSpriteElement(string name, Sprite sprite, int order)
     {
-        GameObject obj = new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
-        RectTransform rect = obj.GetComponent<RectTransform>();
-        rect.sizeDelta = elementSize;
-        Image img = obj.GetComponent<Image>();
-        img.sprite = sprite;
-        img.raycastTarget = true;
-        img.preserveAspect = true;
-
-        Canvas objCanvas = obj.AddComponent<Canvas>();
-        objCanvas.overrideSorting = true;
-        objCanvas.sortingOrder = order;
-        objCanvas.renderMode = RenderMode.WorldSpace;
-
+        GameObject obj = new GameObject(name);
+        SpriteRenderer sr = obj.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        sr.sortingOrder = order;
         return obj;
     }
 
     private SlotController CreateSlot(bool rightSide, int index)
     {
         string n = (rightSide ? "RightSlot_" : "LeftSlot_") + index;
-        GameObject obj = CreateUIElement(n, slotSprite, baseSortingOrder - index);
+        GameObject obj = CreateSpriteElement(n, slotSprite, baseSortingOrder - index);
         obj.transform.SetParent(slotParent, false);
+        obj.transform.localScale = new Vector3(elementSize.x, elementSize.y, 1f);
+
+        BoxCollider col = obj.AddComponent<BoxCollider>();
+        col.size = new Vector3(1f, 1f, 0.1f);
 
         SlotController ctrl = obj.AddComponent<SlotController>();
-        Image img = obj.GetComponent<Image>();
-        ctrl.Initialize(this, rightSide, index, img);
+        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+        ctrl.Initialize(this, rightSide, index, sr);
         return ctrl;
     }
 
