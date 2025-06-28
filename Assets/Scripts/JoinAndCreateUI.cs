@@ -42,6 +42,9 @@ public class JoinAndCreateUI : MonoBehaviour
     {
         if (NetworkManager.Singleton != null)
             NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnected;
+
+        if (relayManager != null)
+            relayManager.OnRelayCreated.RemoveListener(ShowLobbyPanel);
     }
 
     private void Update()
