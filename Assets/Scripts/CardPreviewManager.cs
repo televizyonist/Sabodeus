@@ -12,6 +12,9 @@ public class CardPreviewManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Init()
     {
+        if (Instance != null)
+            return;
+
         var go = new GameObject("CardPreviewManager");
         go.AddComponent<CardPreviewManager>();
         DontDestroyOnLoad(go);
@@ -19,9 +22,21 @@ public class CardPreviewManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
         if (settings == null)
             settings = Resources.Load<CardPreviewSettings>("CardPreviewSettings");
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     public void ShowPreview(GameObject card)
