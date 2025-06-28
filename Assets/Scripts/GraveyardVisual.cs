@@ -16,6 +16,7 @@ public class GraveyardVisual : MonoBehaviour
         var drag = card.GetComponent<CardDraggable>();
         if (drag != null)
             Destroy(drag);
+        Debug.Log($"Added card to graveyard: {_cards.Count} total");
     }
 
     public List<CardEntry> ClearCards()
