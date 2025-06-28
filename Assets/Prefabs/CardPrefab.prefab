@@ -921,7 +921,7 @@ MonoBehaviour:
   descriptionText: {fileID: 8191643813607936820}
   leftValueText: {fileID: 7645800118749853484}
   rightValueText: {fileID: 2161351754430182456}
-  typeIcon: {fileID: 1171927279314227061}
+  typeIcon: {fileID: 3940572274030972432}
 --- !u!114 &2656065775334608559
 MonoBehaviour:
   m_ObjectHideFlags: 0
