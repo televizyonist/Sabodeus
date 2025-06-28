@@ -1,4 +1,4 @@
-﻿using TMPro;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using System.Collections.Generic;
