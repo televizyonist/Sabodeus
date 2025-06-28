@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 
 public class CityAreaManager : MonoBehaviour
 {
+    public static CityAreaManager Instance { get; private set; }
     public Sprite cityCenterSprite;
     public Sprite slotSprite;
     public float horizontalSpacing = 0.7f;
@@ -19,6 +20,7 @@ public class CityAreaManager : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         EnsureRaycaster();
         BuildLayout();
     }
@@ -131,6 +133,14 @@ public class CityAreaManager : MonoBehaviour
             float y = (i + 1) * verticalOffset;
             rightSlots[i].transform.localPosition = new Vector3(x, y, 0);
         }
+    }
+
+    public void ShowSlotBorders(GameObject card)
+    {
+        foreach (var slot in leftSlots)
+            slot.ShowBorder(card);
+        foreach (var slot in rightSlots)
+            slot.ShowBorder(card);
     }
 
     private static string GetCardType(GameObject card)

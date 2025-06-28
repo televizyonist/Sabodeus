@@ -3,6 +3,8 @@ using UnityEngine.EventSystems;
 
 public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
+    public static GameObject HoveredCard { get; private set; }
+    public static GameObject DraggedCard { get; private set; }
     private Vector3 offset;
     private float dragDistance;
     private Camera cam;
@@ -12,6 +14,8 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private HandLayoutFanStyle layout;
     private Vector3 previousPos;
     private CanvasGroup canvasGroup;
+    private Canvas cardCanvas;
+    private int originalSortingOrder;
     public float rotationMultiplier = 30f;
     public float hoverHeight = 0.5f;
     public float hoverForward = 2f;
@@ -24,6 +28,13 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        cardCanvas = GetComponentInChildren<Canvas>();
+        if (cardCanvas != null)
+        {
+            originalSortingOrder = cardCanvas.sortingOrder;
+            if (CityAreaManager.Instance != null)
+                cardCanvas.sortingOrder = CityAreaManager.Instance.baseSortingOrder + 2;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -32,6 +43,8 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         isHovered = true;
         layout?.SpreadOut();
         CardPreviewManager.Instance?.ShowPreview(gameObject);
+        HoveredCard = gameObject;
+        CityAreaManager.Instance?.ShowSlotBorders(gameObject);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -40,6 +53,8 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         isHovered = false;
         layout?.Restore();
         CardPreviewManager.Instance?.HidePreview();
+        HoveredCard = null;
+        CityAreaManager.Instance?.ShowSlotBorders(null);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -72,6 +87,12 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
         offset = transform.position - mouseWorld;
         previousPos = transform.position;
+
+        DraggedCard = gameObject;
+        CityAreaManager.Instance?.ShowSlotBorders(gameObject);
+
+        if (cardCanvas != null && CityAreaManager.Instance != null)
+            cardCanvas.sortingOrder = CityAreaManager.Instance.baseSortingOrder + 2;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -106,6 +127,10 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 slot.AssignCard(gameObject);
                 layout?.UpdateLayout();
                 CardPreviewManager.Instance?.HidePreview();
+                CityAreaManager.Instance?.ShowSlotBorders(null);
+                DraggedCard = null;
+                if (cardCanvas != null && CityAreaManager.Instance != null)
+                    cardCanvas.sortingOrder = CityAreaManager.Instance.baseSortingOrder - slot.Index;
                 return;
             }
         }
@@ -115,5 +140,9 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         transform.localPosition = Vector3.zero;
         layout?.UpdateLayout();
         CardPreviewManager.Instance?.HidePreview();
+        CityAreaManager.Instance?.ShowSlotBorders(null);
+        DraggedCard = null;
+        if (cardCanvas != null)
+            cardCanvas.sortingOrder = originalSortingOrder;
     }
 }
