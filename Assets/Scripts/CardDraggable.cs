@@ -113,6 +113,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             if (parentSlot != null)
             {
                 parentSlot.ClearSlot();
+                CityAreaManager.Instance?.UpdateScoreDisplay();
                 transform.SetParent(null, true);
             }
             else if (layout != null && originalParent == layout.transform)
@@ -197,6 +198,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 CardPreviewManager.Instance?.HidePreview();
                 CityAreaManager.Instance?.ShowSlotBorders(null);
                 DraggedCard = null;
+                CityAreaManager.Instance?.UpdateScoreDisplay();
                 hasDragged = false;
                 return;
             }
@@ -221,5 +223,6 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (cardCanvas != null)
             cardCanvas.sortingOrder = originalSortingOrder;
         hasDragged = false;
+        CityAreaManager.Instance?.UpdateScoreDisplay();
     }
 }
