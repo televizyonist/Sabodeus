@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\CardDeckVisual.cs" />
     <Compile Include="Assets\Scripts\RelayManager.cs" />
     <Compile Include="Assets\Scripts\HandLayoutFanStyle.cs" />
+    <Compile Include="Assets\Scripts\CardPreviewSettings1.cs" />
     <Compile Include="Assets\Scripts\LobbyPlayerListManager.cs" />
     <Compile Include="Assets\Scripts\CreateGameManager.cs" />
     <Compile Include="Assets\Scripts\SlotController.cs" />
