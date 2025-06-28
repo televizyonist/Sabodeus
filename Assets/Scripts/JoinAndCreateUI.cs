@@ -78,12 +78,20 @@ public class JoinAndCreateUI : MonoBehaviour
         }
     }
 
-    public void OnCreateGameClicked()
+    public async void OnCreateGameClicked()
     {
-        relayManager?.CreateRelay();
+        if (relayManager == null) return;
+        try
+        {
+            await relayManager.CreateRelay();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("[JoinAndCreateUI] Failed to create relay: " + e);
+        }
     }
 
-    public void OnJoinGameClicked()
+    public async void OnJoinGameClicked()
     {
         string code = joinCodeInput?.text?.Trim().ToUpper();
 
@@ -93,10 +101,19 @@ public class JoinAndCreateUI : MonoBehaviour
             return;
         }
 
-        relayManager?.JoinRelayWithCallback(code, () =>
+        if (relayManager == null) return;
+
+        try
         {
-            ShowLobbyPanel(code);
-        });
+            await relayManager.JoinRelayWithCallback(code, () =>
+            {
+                ShowLobbyPanel(code);
+            });
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("[JoinAndCreateUI] Failed to join relay: " + e);
+        }
     }
 
     public void ShowLobbyPanel(string code)

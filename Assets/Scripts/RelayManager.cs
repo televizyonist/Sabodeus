@@ -19,13 +19,26 @@ public class RelayManager : MonoBehaviour
     private NetworkManager netManager;
     private UnityTransport transport;
 
-    private async void Awake()
+    private void Awake()
     {
-        await Initialize();
-        netManager = NetworkManager.Singleton;
-        transport = netManager?.NetworkConfig.NetworkTransport as UnityTransport;
-        if (cachedUI == null)
-            cachedUI = FindObjectOfType<JoinAndCreateUI>();
+        _ = AwakeAsync();
+    }
+
+    public async Task AwakeAsync()
+    {
+        try
+        {
+            await Initialize();
+            netManager = NetworkManager.Singleton;
+            transport = netManager?.NetworkConfig.NetworkTransport as UnityTransport;
+            if (cachedUI == null)
+                cachedUI = FindObjectOfType<JoinAndCreateUI>();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("[RelayManager] Awake failed: " + e);
+            throw;
+        }
     }
 
     private async Task Initialize()
@@ -39,7 +52,7 @@ public class RelayManager : MonoBehaviour
         return;
     }
 
-    public async void CreateRelay()
+    public async Task CreateRelay()
     {
         if (!CheckTransport()) return;
 
@@ -63,10 +76,11 @@ public class RelayManager : MonoBehaviour
         catch (RelayServiceException e)
         {
             Debug.LogError("[RelayManager] Relay Host Hatası: " + e);
+            throw;
         }
     }
 
-    public async void JoinRelayWithCallback(string joinCode, System.Action onSuccess)
+    public async Task JoinRelayWithCallback(string joinCode, System.Action onSuccess)
     {
         if (!CheckTransport()) return;
 
@@ -95,6 +109,7 @@ public class RelayManager : MonoBehaviour
         catch (RelayServiceException e)
         {
             Debug.LogError("[RelayManager] Relay Join Hatası: " + e);
+            throw;
         }
     }
 

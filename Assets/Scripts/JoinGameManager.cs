@@ -9,7 +9,7 @@ public class JoinGameManager : MonoBehaviour
     public RelayManager relayManager;
     public TMP_Text feedbackText;
 
-    public void TryJoinRoom()
+    public async void TryJoinRoom()
     {
         if (roomCodeInput == null || relayManager == null)
         {
@@ -28,11 +28,18 @@ public class JoinGameManager : MonoBehaviour
 
         SetFeedback("Joining...");
 
-        relayManager.JoinRelayWithCallback(enteredCode, () =>
+        try
         {
-            Debug.Log("[JoinGameManager] Join successful with code: " + enteredCode);
-            SetFeedback("Joined room " + enteredCode + "!");
-        });
+            await relayManager.JoinRelayWithCallback(enteredCode, () =>
+            {
+                Debug.Log("[JoinGameManager] Join successful with code: " + enteredCode);
+                SetFeedback("Joined room " + enteredCode + "!");
+            });
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("[JoinGameManager] Join failed: " + e);
+        }
 
         StartCoroutine(CheckJoinResult());
     }
