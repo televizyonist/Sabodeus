@@ -8120,6 +8120,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 2154697022427848192, guid: e368116202194df47a0f29e407496c21, type: 3}
+      propertyPath: m_SortingOrder
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 7028323634716383957, guid: e368116202194df47a0f29e407496c21, type: 3}
       propertyPath: deckManager
       value: 
