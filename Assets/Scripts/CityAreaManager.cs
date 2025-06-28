@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class CityAreaManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class CityAreaManager : MonoBehaviour
     public int baseSortingOrder = 100;
 
     public Transform slotParent;
+    public TMP_Text scoreText;
 
     private readonly List<SlotController> rightSlots = new();
     private readonly List<SlotController> leftSlots = new();
@@ -23,6 +25,7 @@ public class CityAreaManager : MonoBehaviour
         Instance = this;
         EnsureRaycaster();
         BuildLayout();
+        UpdateScoreDisplay();
     }
 
     private void EnsureRaycaster()
@@ -193,5 +196,41 @@ public class CityAreaManager : MonoBehaviour
                 rightSlots[next].gameObject.SetActive(true);
             }
         }
+
+        UpdateScoreDisplay();
+    }
+
+    public int CalculateScore()
+    {
+        int total = 0;
+        int rows = Mathf.Min(leftSlots.Count, rightSlots.Count);
+        for (int i = 0; i < rows; i++)
+        {
+            int leftVal = 0;
+            if (leftSlots[i].isOccupied)
+            {
+                var disp = leftSlots[i].CurrentCard?.GetComponent<CardDisplay>();
+                if (disp != null)
+                    leftVal = disp.GetData().leftValue;
+            }
+
+            int rightVal = 0;
+            if (rightSlots[i].isOccupied)
+            {
+                var disp = rightSlots[i].CurrentCard?.GetComponent<CardDisplay>();
+                if (disp != null)
+                    rightVal = disp.GetData().rightValue;
+            }
+
+            total += leftVal * rightVal;
+        }
+
+        return total;
+    }
+
+    public void UpdateScoreDisplay()
+    {
+        if (scoreText != null)
+            scoreText.text = CalculateScore().ToString();
     }
 }

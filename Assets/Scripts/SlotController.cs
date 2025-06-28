@@ -66,6 +66,8 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             slotRenderer.enabled = false;
         }
+
+        manager?.UpdateScoreDisplay();
     }
 
     public void OnPointerEnter(PointerEventData eventData) {}
