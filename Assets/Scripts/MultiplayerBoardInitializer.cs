@@ -1,28 +1,27 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class MultiplayerBoardInitializer : MonoBehaviour
+public class MultiplayerBoardInitializer : NetworkBehaviour
 {
     public GameObject cityAreaPrefab;
     public Vector3 playerOnePosition = new Vector3(-3f, 0f, 0f);
     public Vector3 playerTwoPosition = new Vector3(3f, 0f, 0f);
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
-        if (cityAreaPrefab == null)
-            return;
+        if (!IsServer) return;
 
-        // Player 1 city
-        GameObject c1 = Instantiate(cityAreaPrefab, playerOnePosition, Quaternion.identity);
-        var m1 = c1.GetComponent<CityAreaManager>();
-        if (m1 != null)
-            m1.playerId = 0;
+        foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            ulong clientId = client.ClientId;
+            Vector3 spawnPos = clientId == 0 ? playerOnePosition : playerTwoPosition;
 
-        // Player 2 city
-        GameObject c2 = Instantiate(cityAreaPrefab, playerTwoPosition, Quaternion.identity);
-        var m2 = c2.GetComponent<CityAreaManager>();
-        if (m2 != null)
-            m2.playerId = 1;
+            GameObject city = Instantiate(cityAreaPrefab, spawnPos, Quaternion.identity);
+            city.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
+
+            CityAreaManager mgr = city.GetComponent<CityAreaManager>();
+            if (mgr != null)
+                mgr.playerId = (int)clientId;
+        }
     }
 }
-
-

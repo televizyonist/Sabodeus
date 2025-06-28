@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 
-public class CityAreaManager : MonoBehaviour
+public class CityAreaManager : NetworkBehaviour
 {
     public static List<CityAreaManager> Managers { get; } = new();
     public static CityAreaManager Instance => Managers.Count > 0 ? Managers[0] : null;

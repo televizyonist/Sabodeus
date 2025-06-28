@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\JoinGameManager.cs" />
     <Compile Include="Assets\Scripts\TurnManager.cs" />
     <Compile Include="Assets\Scripts\HandAreaHoverSpread.cs" />
+    <Compile Include="Assets\Scripts\MultiplayerBoardInitializer.cs" />
     <Compile Include="Assets\Scripts\GraveyardVisual.cs" />
     <Compile Include="Assets\Scripts\ExitGameHandler.cs" />
     <Compile Include="Assets\Scripts\CardDraggable.cs" />
