@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\GraveyardVisual.cs" />
     <Compile Include="Assets\Scripts\ExitGameHandler.cs" />
     <Compile Include="Assets\Scripts\CardDraggable.cs" />
+    <Compile Include="Assets\Scripts\TurnManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
