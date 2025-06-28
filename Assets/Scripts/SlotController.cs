@@ -77,6 +77,12 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (slotRenderer == null)
             return;
 
+        if (isOccupied)
+        {
+            slotRenderer.enabled = false;
+            return;
+        }
+
         if (card == null)
         {
             slotRenderer.enabled = false;
