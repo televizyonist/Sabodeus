@@ -17,6 +17,7 @@ public class GraveyardVisual : MonoBehaviour
         Destroy(card);
         UpdateCountText();
         Debug.Log($"Added card to graveyard: {_cards.Count} total");
+        TurnManager.Instance?.CardPlayed();
     }
 
     public List<CardEntry> ClearCards()

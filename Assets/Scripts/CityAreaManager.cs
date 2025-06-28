@@ -198,6 +198,7 @@ public class CityAreaManager : MonoBehaviour
         }
 
         UpdateScoreDisplay();
+        TurnManager.Instance?.CardPlayed();
     }
 
     public int CalculateScore()
