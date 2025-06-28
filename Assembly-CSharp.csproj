@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\LocalizationManager.cs" />
     <Compile Include="Assets\Scripts\SettingsMenuRuntime.cs" />
     <Compile Include="Assets\Scripts\JoinGameManager.cs" />
+    <Compile Include="Assets\Scripts\GraveyardVisual.cs" />
     <Compile Include="Assets\Scripts\ExitGameHandler.cs" />
     <Compile Include="Assets\Scripts\CardDraggable.cs" />
   </ItemGroup>
