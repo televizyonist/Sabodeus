@@ -20,6 +20,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Canvas cardCanvas;
     private int originalSortingOrder;
     private Collider cardCollider;
+    private CardDisplay display;
     public float rotationMultiplier = 30f;
     public float hoverHeight = 0.5f;
     public float hoverForward = 2f;
@@ -44,6 +45,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     void Start()
     {
         cam = Camera.main;
+        display = GetComponent<CardDisplay>();
         layout = transform.parent?.GetComponent<HandLayoutFanStyle>();
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
@@ -53,35 +55,43 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (cardCanvas != null)
         {
             originalSortingOrder = cardCanvas.sortingOrder;
-            if (CityAreaManager.Instance != null)
-                cardCanvas.sortingOrder = CityAreaManager.Instance.baseSortingOrder + 2;
+            CityAreaManager mgr = display != null ? CityAreaManager.GetManager(display.ownerId) : CityAreaManager.Instance;
+            if (mgr != null)
+                cardCanvas.sortingOrder = mgr.baseSortingOrder + 2;
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (isDragging || isHovered) return;
+        if (TurnManager.Instance != null && display != null && !TurnManager.Instance.IsPlayerTurn(display.ownerId))
+            return;
         isHovered = true;
         layout?.SpreadOut();
         CardPreviewManager.Instance?.ShowPreview(gameObject);
         HoveredCard = gameObject;
-        CityAreaManager.Instance?.ShowSlotBorders(gameObject);
+        CityAreaManager.GetManager(display != null ? display.ownerId : 0)?.ShowSlotBorders(gameObject);
         SetSiblingOpacity(0.5f, false);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (!isHovered || isDragging) return;
+        if (TurnManager.Instance != null && display != null && !TurnManager.Instance.IsPlayerTurn(display.ownerId))
+            return;
         isHovered = false;
         layout?.Restore();
         CardPreviewManager.Instance?.HidePreview();
         HoveredCard = null;
-        CityAreaManager.Instance?.ShowSlotBorders(null);
+        CityAreaManager.GetManager(display != null ? display.ownerId : 0)?.ShowSlotBorders(null);
         SetSiblingOpacity(1f, true);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (TurnManager.Instance != null && display != null && !TurnManager.Instance.IsPlayerTurn(display.ownerId))
+            return;
+
         isDragging = true;
         isHovered = false;
         CardPreviewManager.Instance?.HidePreview();
@@ -113,7 +123,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             if (parentSlot != null)
             {
                 parentSlot.ClearSlot();
-                CityAreaManager.Instance?.UpdateScoreDisplay();
+                CityAreaManager.GetManager(display != null ? display.ownerId : 0)?.UpdateScoreDisplay();
                 transform.SetParent(null, true);
             }
             else if (layout != null && originalParent == layout.transform)
@@ -129,10 +139,11 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 cardCollider.enabled = false;
 
             DraggedCard = gameObject;
-            CityAreaManager.Instance?.ShowSlotBorders(gameObject);
+            CityAreaManager.GetManager(display != null ? display.ownerId : 0)?.ShowSlotBorders(gameObject);
 
-            if (cardCanvas != null && CityAreaManager.Instance != null)
-                cardCanvas.sortingOrder = CityAreaManager.Instance.baseSortingOrder + 2;
+            CityAreaManager mgr = CityAreaManager.GetManager(display != null ? display.ownerId : 0);
+            if (cardCanvas != null && mgr != null)
+                cardCanvas.sortingOrder = mgr.baseSortingOrder + 2;
         }
 
         Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
@@ -160,7 +171,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (!hasDragged)
         {
             CardPreviewManager.Instance?.HidePreview();
-            CityAreaManager.Instance?.ShowSlotBorders(null);
+            CityAreaManager.GetManager(display != null ? display.ownerId : 0)?.ShowSlotBorders(null);
             DraggedCard = null;
             if (cardCanvas != null)
                 cardCanvas.sortingOrder = originalSortingOrder;
@@ -179,10 +190,11 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 slot.AssignCard(gameObject);
                 layout?.UpdateLayout();
                 CardPreviewManager.Instance?.HidePreview();
-                CityAreaManager.Instance?.ShowSlotBorders(null);
+                CityAreaManager.GetManager(display != null ? display.ownerId : 0)?.ShowSlotBorders(null);
                 DraggedCard = null;
-                if (cardCanvas != null && CityAreaManager.Instance != null)
-                    cardCanvas.sortingOrder = CityAreaManager.Instance.baseSortingOrder - slot.Index;
+                CityAreaManager mgr = CityAreaManager.GetManager(display != null ? display.ownerId : 0);
+                if (cardCanvas != null && mgr != null)
+                    cardCanvas.sortingOrder = mgr.baseSortingOrder - slot.Index;
                 hasDragged = false;
                 return;
             }
@@ -196,9 +208,9 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 gy.AddCard(gameObject);
                 layout?.UpdateLayout();
                 CardPreviewManager.Instance?.HidePreview();
-                CityAreaManager.Instance?.ShowSlotBorders(null);
+                CityAreaManager.GetManager(display != null ? display.ownerId : 0)?.ShowSlotBorders(null);
                 DraggedCard = null;
-                CityAreaManager.Instance?.UpdateScoreDisplay();
+                CityAreaManager.GetManager(display != null ? display.ownerId : 0)?.UpdateScoreDisplay();
                 hasDragged = false;
                 return;
             }
@@ -218,11 +230,11 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         transform.localPosition = originalLocalPos;
         layout?.UpdateLayout();
         CardPreviewManager.Instance?.HidePreview();
-        CityAreaManager.Instance?.ShowSlotBorders(null);
+        CityAreaManager.GetManager(display != null ? display.ownerId : 0)?.ShowSlotBorders(null);
         DraggedCard = null;
         if (cardCanvas != null)
             cardCanvas.sortingOrder = originalSortingOrder;
         hasDragged = false;
-        CityAreaManager.Instance?.UpdateScoreDisplay();
+        CityAreaManager.GetManager(display != null ? display.ownerId : 0)?.UpdateScoreDisplay();
     }
 }

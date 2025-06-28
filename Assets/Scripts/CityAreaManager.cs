@@ -5,7 +5,16 @@ using TMPro;
 
 public class CityAreaManager : MonoBehaviour
 {
-    public static CityAreaManager Instance { get; private set; }
+    public static List<CityAreaManager> Managers { get; } = new();
+    public static CityAreaManager Instance => Managers.Count > 0 ? Managers[0] : null;
+
+    public static CityAreaManager GetManager(int id)
+    {
+        return Managers.Find(m => m.playerId == id);
+    }
+
+    [Tooltip("Owner player id for this city area")]
+    public int playerId = 0;
     public Sprite cityCenterSprite;
     public Sprite slotSprite;
     public float horizontalSpacing = 0.7f;
@@ -22,7 +31,8 @@ public class CityAreaManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (!Managers.Contains(this))
+            Managers.Add(this);
         EnsureRaycaster();
         BuildLayout();
         UpdateScoreDisplay();
@@ -41,8 +51,7 @@ public class CityAreaManager : MonoBehaviour
     {
         if (slotParent == null)
         {
-            Debug.LogError("CityAreaManager: slotParent atanmamış!");
-            return;
+            slotParent = transform;
         }
 
         GameObject center = CreateSpriteElement("CityCenter", cityCenterSprite, baseSortingOrder + 1, out _);
@@ -154,6 +163,10 @@ public class CityAreaManager : MonoBehaviour
 
     public bool CanPlaceCard(SlotController slot, GameObject card)
     {
+        var disp = card != null ? card.GetComponent<CardDisplay>() : null;
+        if (disp != null && disp.ownerId != playerId)
+            return false;
+
         string type = GetCardType(card);
         if (string.IsNullOrEmpty(type))
             return false;

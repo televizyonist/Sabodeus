@@ -11,6 +11,8 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private CityAreaManager manager;
 
+    public int OwnerPlayerId => manager != null ? manager.playerId : 0;
+
     [Header("Border Colors")]
     public Color allowedColor = Color.green;
     public Color forbiddenColor = Color.red;
@@ -40,6 +42,11 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public bool CanPlaceCard(GameObject card)
     {
         if (isOccupied) return false;
+
+        var disp = card != null ? card.GetComponent<CardDisplay>() : null;
+        if (disp != null && manager != null && disp.ownerId != manager.playerId)
+            return false;
+
         return manager == null || manager.CanPlaceCard(this, card);
     }
 
