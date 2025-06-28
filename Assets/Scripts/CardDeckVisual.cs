@@ -25,7 +25,7 @@ public class CardDeckVisual : MonoBehaviour, IPointerClickHandler
                 deckManager.ReplenishDeck(entries);
         }
 
-        var card = deckManager.SpawnCardToHand();
+        var card = deckManager.SpawnCardToHandAnimated(transform);
         Debug.Log("Kart ekildi: " + card?.id);
         UpdateCountText();
     }
