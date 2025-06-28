@@ -39,6 +39,11 @@ public class CityAreaManager : NetworkBehaviour
         UpdateScoreDisplay();
     }
 
+    private void OnDestroy()
+    {
+        Managers.Remove(this);
+    }
+
     private void EnsureRaycaster()
     {
         Camera cam = Camera.main;
