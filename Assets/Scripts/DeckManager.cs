@@ -114,6 +114,18 @@ public class DeckManager : MonoBehaviour
             (list[k], list[n]) = (list[n], list[k]);
         }
     }
+
+    public void ReplenishDeck(IEnumerable<CardEntry> cards)
+    {
+        if (cards == null)
+            return;
+        List<CardEntry> list = new(cards);
+        if (list.Count == 0)
+            return;
+        Shuffle(list);
+        drawPile = new Stack<CardEntry>(list);
+        Debug.Log($"Draw pile replenished with {drawPile.Count} cards from graveyard.");
+    }
 }
 
 [System.Serializable]
