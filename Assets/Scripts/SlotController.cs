@@ -11,9 +11,9 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private CityAreaManager manager;
 
-    [Header("Highlighting")]
-    public Color highlightColor = Color.yellow;
-    private Color originalColor;
+    [Header("Border Colors")]
+    public Color allowedColor = Color.green;
+    public Color forbiddenColor = Color.red;
     private Renderer slotRenderer;
 
     public string AllowedType { get; private set; } = null;
@@ -33,7 +33,7 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         if (slotRenderer != null)
         {
-            originalColor = slotRenderer.material.color;
+            slotRenderer.enabled = false;
         }
     }
 
@@ -64,21 +64,26 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         if (slotRenderer != null)
         {
-            slotRenderer.material.color = originalColor;
+            slotRenderer.enabled = false;
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData) {}
+
+    public void OnPointerExit(PointerEventData eventData) {}
+
+    public void ShowBorder(GameObject card)
     {
-        if (isOccupied || slotRenderer == null) return;
+        if (slotRenderer == null)
+            return;
 
-        slotRenderer.material.color = highlightColor;
-    }
+        if (card == null)
+        {
+            slotRenderer.enabled = false;
+            return;
+        }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (slotRenderer == null) return;
-
-        slotRenderer.material.color = originalColor;
+        slotRenderer.enabled = true;
+        slotRenderer.material.color = CanPlaceCard(card) ? allowedColor : forbiddenColor;
     }
 }
