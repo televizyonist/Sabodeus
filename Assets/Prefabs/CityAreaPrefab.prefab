@@ -51,3 +51,4 @@ MonoBehaviour:
   elementSize: {x: 0.6, y: 0.9}
   baseSortingOrder: 10
   slotParent: {fileID: 0}
+  scoreText: {fileID: 0}
