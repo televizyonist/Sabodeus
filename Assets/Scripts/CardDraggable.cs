@@ -10,7 +10,10 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Camera cam;
     private bool isDragging = false;
     private Vector3 originalPos;
+    private Vector3 originalLocalPos;
+    private int originalSiblingIndex;
     private Transform originalParent;
+    private bool hasDragged = false;
     private HandLayoutFanStyle layout;
     private Vector3 previousPos;
     private CanvasGroup canvasGroup;
@@ -83,45 +86,53 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         isHovered = false;
         CardPreviewManager.Instance?.HidePreview();
         SetSiblingOpacity(1f, true);
+
         originalParent = transform.parent;
-
-        // If this card was sitting in a slot, clear that slot so it can accept
-        // a new card while we drag this one around.
-        SlotController parentSlot = originalParent != null
-            ? originalParent.GetComponent<SlotController>()
-            : null;
-        if (parentSlot != null)
-        {
-            parentSlot.ClearSlot();
-            transform.SetParent(null, true);
-        }
-        else if (layout != null && originalParent == layout.transform)
-        {
-            transform.SetParent(null, true);
-            layout.UpdateLayout();
-        }
-
-        if (canvasGroup != null)
-            canvasGroup.blocksRaycasts = false;
-
-        if (cardCollider != null)
-            cardCollider.enabled = false;
+        originalLocalPos = transform.localPosition;
+        originalSiblingIndex = transform.GetSiblingIndex();
+        hasDragged = false;
 
         dragDistance = cam.WorldToScreenPoint(transform.position).z;
         Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
         offset = transform.position - mouseWorld;
         previousPos = transform.position;
-
-        DraggedCard = gameObject;
-        CityAreaManager.Instance?.ShowSlotBorders(gameObject);
-
-        if (cardCanvas != null && CityAreaManager.Instance != null)
-            cardCanvas.sortingOrder = CityAreaManager.Instance.baseSortingOrder + 2;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (!isDragging) return;
+
+        if (!hasDragged)
+        {
+            hasDragged = true;
+
+            // If this card was sitting in a slot, clear it first
+            SlotController parentSlot = originalParent != null
+                ? originalParent.GetComponent<SlotController>()
+                : null;
+            if (parentSlot != null)
+            {
+                parentSlot.ClearSlot();
+                transform.SetParent(null, true);
+            }
+            else if (layout != null && originalParent == layout.transform)
+            {
+                transform.SetParent(null, true);
+                layout.UpdateLayout();
+            }
+
+            if (canvasGroup != null)
+                canvasGroup.blocksRaycasts = false;
+
+            if (cardCollider != null)
+                cardCollider.enabled = false;
+
+            DraggedCard = gameObject;
+            CityAreaManager.Instance?.ShowSlotBorders(gameObject);
+
+            if (cardCanvas != null && CityAreaManager.Instance != null)
+                cardCanvas.sortingOrder = CityAreaManager.Instance.baseSortingOrder + 2;
+        }
 
         Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
         Vector3 target = mouseWorld + offset;
@@ -137,11 +148,23 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         isDragging = false;
         isHovered = false;
         transform.rotation = Quaternion.identity;
+
         if (canvasGroup != null)
             canvasGroup.blocksRaycasts = true;
         if (cardCollider != null)
             cardCollider.enabled = true;
+
         SetSiblingOpacity(1f, true);
+
+        if (!hasDragged)
+        {
+            CardPreviewManager.Instance?.HidePreview();
+            CityAreaManager.Instance?.ShowSlotBorders(null);
+            DraggedCard = null;
+            if (cardCanvas != null)
+                cardCanvas.sortingOrder = originalSortingOrder;
+            return;
+        }
 
         // 💡 Daha sağlam yöntem: pointerEnter üzerinden slotı bul
         if (eventData.pointerEnter != null)
@@ -159,6 +182,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 DraggedCard = null;
                 if (cardCanvas != null && CityAreaManager.Instance != null)
                     cardCanvas.sortingOrder = CityAreaManager.Instance.baseSortingOrder - slot.Index;
+                hasDragged = false;
                 return;
             }
 
@@ -173,6 +197,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 CardPreviewManager.Instance?.HidePreview();
                 CityAreaManager.Instance?.ShowSlotBorders(null);
                 DraggedCard = null;
+                hasDragged = false;
                 return;
             }
             else
@@ -187,12 +212,14 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         // Uygun slot yok → eski konuma dön
         transform.SetParent(originalParent, true);
-        transform.localPosition = Vector3.zero;
+        transform.SetSiblingIndex(originalSiblingIndex);
+        transform.localPosition = originalLocalPos;
         layout?.UpdateLayout();
         CardPreviewManager.Instance?.HidePreview();
         CityAreaManager.Instance?.ShowSlotBorders(null);
         DraggedCard = null;
         if (cardCanvas != null)
             cardCanvas.sortingOrder = originalSortingOrder;
+        hasDragged = false;
     }
 }
