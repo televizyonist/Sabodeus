@@ -22,6 +22,22 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public float hoverForward = 2f;
     private bool isHovered = false;
 
+    private void SetSiblingOpacity(float alpha, bool blockRaycast)
+    {
+        Transform parent = transform.parent;
+        if (parent == null) return;
+
+        foreach (Transform child in parent)
+        {
+            if (child == transform) continue;
+            CanvasGroup cg = child.GetComponent<CanvasGroup>();
+            if (cg == null)
+                cg = child.gameObject.AddComponent<CanvasGroup>();
+            cg.alpha = alpha;
+            cg.blocksRaycasts = blockRaycast;
+        }
+    }
+
     void Start()
     {
         cam = Camera.main;
@@ -47,6 +63,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         CardPreviewManager.Instance?.ShowPreview(gameObject);
         HoveredCard = gameObject;
         CityAreaManager.Instance?.ShowSlotBorders(gameObject);
+        SetSiblingOpacity(0.5f, false);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -57,6 +74,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         CardPreviewManager.Instance?.HidePreview();
         HoveredCard = null;
         CityAreaManager.Instance?.ShowSlotBorders(null);
+        SetSiblingOpacity(1f, true);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -64,6 +82,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         isDragging = true;
         isHovered = false;
         CardPreviewManager.Instance?.HidePreview();
+        SetSiblingOpacity(1f, true);
         originalParent = transform.parent;
 
         // If this card was sitting in a slot, clear that slot so it can accept
@@ -122,6 +141,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             canvasGroup.blocksRaycasts = true;
         if (cardCollider != null)
             cardCollider.enabled = true;
+        SetSiblingOpacity(1f, true);
 
         // 💡 Daha sağlam yöntem: pointerEnter üzerinden slotı bul
         if (eventData.pointerEnter != null)

@@ -92,12 +92,15 @@ public class DeckManager : MonoBehaviour
         return cardData;
     }
 
-    private IEnumerator SpawnCardToHandAnimated(CardEntry cardData)
+    private IEnumerator SpawnCardToHandAnimatedRoutine(CardEntry cardData, Transform startPoint)
     {
         if (handAreaTransform.childCount >= 4 || cardData == null)
             yield break;
 
-        GameObject cardObj = Instantiate(cardPrefab, spawnPoint.position, Quaternion.identity, spawnPoint.parent);
+        if (startPoint == null)
+            startPoint = spawnPoint;
+
+        GameObject cardObj = Instantiate(cardPrefab, startPoint.position, Quaternion.identity, startPoint.parent);
         cardObj.transform.localScale = Vector3.one * (0.8f / 3f);
 
         var display = cardObj.GetComponent<CardDisplay>();
@@ -114,7 +117,7 @@ public class DeckManager : MonoBehaviour
             display.typeIcon.enabled = false;
         }
 
-        Vector3 startPos = spawnPoint.position;
+        Vector3 startPos = startPoint.position;
         Vector3 endPos = handAreaTransform.position;
         float t = 0f;
         while (t < 1f)
@@ -140,6 +143,30 @@ public class DeckManager : MonoBehaviour
 
         if (handLayout != null)
             handLayout.UpdateLayout();
+    }
+
+    public CardEntry SpawnCardToHandAnimated(Transform startPoint)
+    {
+        if (handAreaTransform.childCount >= 4)
+        {
+            Debug.Log("Hand is full. Max 4 cards allowed.");
+            return null;
+        }
+
+        var cardData = DrawCard();
+        if (cardData == null)
+        {
+            Debug.LogWarning("No card to draw.");
+            return null;
+        }
+
+        StartCoroutine(SpawnCardToHandAnimatedRoutine(cardData, startPoint));
+        return cardData;
+    }
+
+    private IEnumerator SpawnCardToHandAnimated(CardEntry cardData)
+    {
+        return SpawnCardToHandAnimatedRoutine(cardData, spawnPoint);
     }
 
     private IEnumerator DealStartingHand(int count)
