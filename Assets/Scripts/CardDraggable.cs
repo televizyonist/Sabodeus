@@ -133,6 +133,19 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                     cardCanvas.sortingOrder = CityAreaManager.Instance.baseSortingOrder - slot.Index;
                 return;
             }
+
+            GraveyardVisual gy = eventData.pointerEnter.GetComponent<GraveyardVisual>();
+            if (gy == null)
+                gy = eventData.pointerEnter.GetComponentInParent<GraveyardVisual>();
+            if (gy != null)
+            {
+                gy.AddCard(gameObject);
+                layout?.UpdateLayout();
+                CardPreviewManager.Instance?.HidePreview();
+                CityAreaManager.Instance?.ShowSlotBorders(null);
+                DraggedCard = null;
+                return;
+            }
         }
 
         // Uygun slot yok → eski konuma dön
