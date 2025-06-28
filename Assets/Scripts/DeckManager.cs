@@ -104,10 +104,8 @@ public class DeckManager : MonoBehaviour
         cardObj.transform.localScale = Vector3.one * (0.8f / 3f);
 
         var display = cardObj.GetComponent<CardDisplay>();
-        Sprite originalSprite = null;
         if (display != null)
         {
-            originalSprite = display.cardBackground.sprite;
             if (cardBackSprite != null)
                 display.cardBackground.sprite = cardBackSprite;
             display.nameText.enabled = false;
@@ -133,7 +131,6 @@ public class DeckManager : MonoBehaviour
         if (display != null)
         {
             display.Initialize(cardData);
-            display.cardBackground.sprite = originalSprite;
             display.nameText.enabled = true;
             display.descriptionText.enabled = true;
             display.leftValueText.enabled = true;
