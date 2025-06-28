@@ -7,7 +7,7 @@ public class ExitGameHandler : MonoBehaviour
 {
     public void ExitGame()
     {
-        Debug.Log("Çýkýþ yapýlýyor...");
+        Debug.Log("Ã‡Ä±kÄ±ÅŸ yapÄ±lÄ±yor...");
 
 #if UNITY_EDITOR
         EditorApplication.isPlaying = false;
