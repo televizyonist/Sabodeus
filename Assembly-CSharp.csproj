@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\DeckManager.cs" />
     <Compile Include="Assets\Scripts\LocalizedText.cs" />
     <Compile Include="Assets\Scripts\CardPreviewManager.cs" />
+    <Compile Include="Assets\Scripts\CardPreviewSettings.cs" />
     <Compile Include="Assets\Scripts\CardEntry.cs" />
     <Compile Include="Assets\Scripts\CardDeckVisual.cs" />
     <Compile Include="Assets\Scripts\RelayManager.cs" />
