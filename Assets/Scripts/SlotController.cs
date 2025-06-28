@@ -16,6 +16,13 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private Color originalColor;
     private Renderer slotRenderer;
 
+    public string AllowedType { get; private set; } = null;
+
+    public void SetAllowedType(string type)
+    {
+        AllowedType = type;
+    }
+
     public void Initialize(CityAreaManager mgr, bool rightSide, int index, Renderer rend)
     {
         manager = mgr;
@@ -28,6 +35,12 @@ public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             originalColor = slotRenderer.material.color;
         }
+    }
+
+    public bool CanPlaceCard(GameObject card)
+    {
+        if (isOccupied) return false;
+        return manager == null || manager.CanPlaceCard(this, card);
     }
 
     public void AssignCard(GameObject card)

@@ -15,6 +15,7 @@ public class CityAreaManager : MonoBehaviour
 
     private readonly List<SlotController> rightSlots = new();
     private readonly List<SlotController> leftSlots = new();
+    private readonly HashSet<string> bannedTypes = new();
 
     private void Awake()
     {
@@ -132,13 +133,55 @@ public class CityAreaManager : MonoBehaviour
         }
     }
 
+    private static string GetCardType(GameObject card)
+    {
+        CardDisplay disp = card != null ? card.GetComponent<CardDisplay>() : null;
+        return disp != null ? disp.GetData()?.type : null;
+    }
+
+    public bool CanPlaceCard(SlotController slot, GameObject card)
+    {
+        string type = GetCardType(card);
+        if (string.IsNullOrEmpty(type))
+            return false;
+
+        if (bannedTypes.Contains(type))
+            return false;
+
+        if (!string.IsNullOrEmpty(slot.AllowedType) && slot.AllowedType != type)
+            return false;
+
+        return true;
+    }
+
     public void OnSlotFilled(SlotController slot)
     {
-        List<SlotController> list = slot.IsRightSide ? rightSlots : leftSlots;
-        int next = slot.Index + 1;
-        if (next < list.Count)
+        int row = slot.Index;
+        string type = GetCardType(slot.CurrentCard);
+        if (string.IsNullOrEmpty(type))
+            return;
+
+        SlotController opposite = slot.IsRightSide ? leftSlots[row] : rightSlots[row];
+
+        if (!opposite.isOccupied)
+            opposite.SetAllowedType(type);
+
+        if (leftSlots[row].isOccupied && rightSlots[row].isOccupied)
         {
-            list[next].gameObject.SetActive(true);
+            leftSlots[row].SetAllowedType(null);
+            rightSlots[row].SetAllowedType(null);
+
+            string leftType = GetCardType(leftSlots[row].CurrentCard);
+            string rightType = GetCardType(rightSlots[row].CurrentCard);
+            if (!string.IsNullOrEmpty(leftType) && leftType == rightType)
+                bannedTypes.Add(leftType);
+
+            int next = row + 1;
+            if (next < leftSlots.Count)
+            {
+                leftSlots[next].gameObject.SetActive(true);
+                rightSlots[next].gameObject.SetActive(true);
+            }
         }
     }
 }

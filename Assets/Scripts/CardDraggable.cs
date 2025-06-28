@@ -99,7 +99,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (eventData.pointerEnter != null)
         {
             SlotController slot = eventData.pointerEnter.GetComponent<SlotController>();
-            if (slot != null && !slot.isOccupied)
+            if (slot != null && slot.CanPlaceCard(gameObject))
             {
                 transform.SetParent(slot.transform, true);
                 transform.localPosition = Vector3.zero;
