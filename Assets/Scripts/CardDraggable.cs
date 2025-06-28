@@ -16,6 +16,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private CanvasGroup canvasGroup;
     private Canvas cardCanvas;
     private int originalSortingOrder;
+    private Collider cardCollider;
     public float rotationMultiplier = 30f;
     public float hoverHeight = 0.5f;
     public float hoverForward = 2f;
@@ -28,6 +29,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        cardCollider = GetComponent<Collider>();
         cardCanvas = GetComponentInChildren<Canvas>();
         if (cardCanvas != null)
         {
@@ -83,6 +85,9 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (canvasGroup != null)
             canvasGroup.blocksRaycasts = false;
 
+        if (cardCollider != null)
+            cardCollider.enabled = false;
+
         dragDistance = cam.WorldToScreenPoint(transform.position).z;
         Vector3 mouseWorld = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, dragDistance));
         offset = transform.position - mouseWorld;
@@ -115,6 +120,8 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         transform.rotation = Quaternion.identity;
         if (canvasGroup != null)
             canvasGroup.blocksRaycasts = true;
+        if (cardCollider != null)
+            cardCollider.enabled = true;
 
         // 💡 Daha sağlam yöntem: pointerEnter üzerinden slotı bul
         if (eventData.pointerEnter != null)
