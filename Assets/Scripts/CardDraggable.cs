@@ -122,6 +122,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             SlotController slot = eventData.pointerEnter.GetComponent<SlotController>();
             if (slot != null && slot.CanPlaceCard(gameObject))
             {
+                Debug.Log($"Card dropped on slot {slot.name}");
                 transform.SetParent(slot.transform, true);
                 transform.localPosition = Vector3.zero;
                 slot.AssignCard(gameObject);
@@ -139,6 +140,7 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 gy = eventData.pointerEnter.GetComponentInParent<GraveyardVisual>();
             if (gy != null)
             {
+                Debug.Log("Card dropped on graveyard");
                 gy.AddCard(gameObject);
                 layout?.UpdateLayout();
                 CardPreviewManager.Instance?.HidePreview();
@@ -146,6 +148,14 @@ public class CardDraggable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 DraggedCard = null;
                 return;
             }
+            else
+            {
+                Debug.Log($"No valid drop target for {gameObject.name} - pointer over {eventData.pointerEnter.name}");
+            }
+        }
+        else
+        {
+            Debug.Log($"Pointer up but pointerEnter was null for {gameObject.name}");
         }
 
         // Uygun slot yok → eski konuma dön
