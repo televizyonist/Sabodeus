@@ -2662,6 +2662,8 @@ MonoBehaviour:
   cardPrefab: {fileID: 9162908024663301388, guid: 16292b10b0998674aa33097b39c6a83f, type: 3}
   spawnPoint: {fileID: 964810864}
   handAreaTransform: {fileID: 1026654407}
+  cardBackSprite: {fileID: 0}
+  dealSpeed: 8
   cardDataAsset: {fileID: 0}
   fullDeck:
   - id: 
@@ -4100,6 +4102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1026654407}
   - component: {fileID: 1026654408}
+  - component: {fileID: 1026654409}
   m_Layer: 0
   m_Name: CardHandArea
   m_TagString: Untagged
@@ -4135,12 +4138,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spacing: 0.8
-  curveHeight: 0
-  rotationScale: 0
-  depthOffset: 0
-  verticalShift: 0
+  maxWidth: 10
+  curveHeight: 0.3
+  rotationScale: -5
+  depthOffset: 0.1
+  verticalShift: 0.2
   spreadMultiplier: 2
   spreadDuration: 0.2
+  animateLayout: 1
+  layoutAnimationDuration: 0.2
+--- !u!114 &1026654409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026654406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3185030fef6f4302a7a84de3c6d9d549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1065721743
 GameObject:
   m_ObjectHideFlags: 0
@@ -4153,6 +4171,7 @@ GameObject:
   - component: {fileID: 1065721746}
   - component: {fileID: 1065721745}
   - component: {fileID: 1468752447}
+  - component: {fileID: 1468752448}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -4217,18 +4236,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065721743}
   m_CullTransparentMesh: 1
---- !u!114 &1468752447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065721743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3185030fef6f4302a7a84de3c6d9d549, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
 --- !u!1 &1067200575
 GameObject:
   m_ObjectHideFlags: 0
@@ -5595,6 +5602,40 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1468752447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065721743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3185030fef6f4302a7a84de3c6d9d549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1468752448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065721743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b821bb48c89d7e468cf90c5982b9830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spacing: 1.25
+  maxWidth: 5
+  curveHeight: 0.2
+  rotationScale: 5
+  depthOffset: 1
+  verticalShift: 0
+  spreadMultiplier: 1.1
+  spreadDuration: 0.2
+  animateLayout: 1
+  layoutAnimationDuration: 0.2
 --- !u!1 &1474432530
 GameObject:
   m_ObjectHideFlags: 0
