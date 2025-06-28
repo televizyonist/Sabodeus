@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DeckManager : MonoBehaviour
@@ -6,6 +7,8 @@ public class DeckManager : MonoBehaviour
     public GameObject cardPrefab;
     public Transform spawnPoint;
     public Transform handAreaTransform;
+    public Sprite cardBackSprite;
+    public float dealSpeed = 8f;
 
     [SerializeField] private TextAsset cardDataAsset;
 
@@ -89,17 +92,76 @@ public class DeckManager : MonoBehaviour
         return cardData;
     }
 
+    private IEnumerator SpawnCardToHandAnimated(CardEntry cardData)
+    {
+        if (handAreaTransform.childCount >= 4 || cardData == null)
+            yield break;
+
+        GameObject cardObj = Instantiate(cardPrefab, spawnPoint.position, Quaternion.identity, spawnPoint.parent);
+        cardObj.transform.localScale = Vector3.one * (0.8f / 3f);
+
+        var display = cardObj.GetComponent<CardDisplay>();
+        Sprite originalSprite = null;
+        if (display != null)
+        {
+            originalSprite = display.cardBackground.sprite;
+            if (cardBackSprite != null)
+                display.cardBackground.sprite = cardBackSprite;
+            display.nameText.enabled = false;
+            display.descriptionText.enabled = false;
+            display.leftValueText.enabled = false;
+            display.rightValueText.enabled = false;
+            display.typeIcon.enabled = false;
+        }
+
+        Vector3 startPos = spawnPoint.position;
+        Vector3 endPos = handAreaTransform.position;
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * dealSpeed;
+            cardObj.transform.position = Vector3.Lerp(startPos, endPos, t);
+            yield return null;
+        }
+
+        cardObj.transform.SetParent(handAreaTransform, true);
+        cardObj.transform.localPosition = Vector3.zero;
+
+        if (display != null)
+        {
+            display.Initialize(cardData);
+            display.cardBackground.sprite = originalSprite;
+            display.nameText.enabled = true;
+            display.descriptionText.enabled = true;
+            display.leftValueText.enabled = true;
+            display.rightValueText.enabled = true;
+            display.typeIcon.enabled = true;
+        }
+
+        if (handLayout != null)
+            handLayout.UpdateLayout();
+    }
+
+    private IEnumerator DealStartingHand(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            var cardData = DrawCard();
+            if (cardData == null)
+                yield break;
+
+            yield return SpawnCardToHandAnimated(cardData);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
     private void Start()
     {
         handLayout = handAreaTransform.GetComponent<HandLayoutFanStyle>();
         LoadDeckFromJson();
         InitializeDrawPile();
 
-        var cardData = SpawnCardToHand();
-        if (cardData != null)
-        {
-            Debug.Log("Kart Eline Geldi: " + cardData.id + " → " + cardData.leftValue + "-" + cardData.rightValue);
-        }
+        StartCoroutine(DealStartingHand(4));
     }
 
     private static readonly System.Random rng = new();
