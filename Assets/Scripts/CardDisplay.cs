@@ -17,6 +17,14 @@ public class CardDisplay : MonoBehaviour
 
     private static readonly Dictionary<string, Sprite> iconCache = new();
 
+    [Tooltip("Owner player id of this card")]
+    public int ownerId = 0;
+
+    public void SetOwner(int id)
+    {
+        ownerId = id;
+    }
+
     private void OnEnable()
     {
         LocalizationManager.OnLanguageChanged += UpdateLocalization;

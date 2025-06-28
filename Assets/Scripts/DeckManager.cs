@@ -16,6 +16,8 @@ public class DeckManager : MonoBehaviour
     private Stack<CardEntry> drawPile = new();
     private HandLayoutFanStyle handLayout;
 
+    [Tooltip("Owner player id of this deck")] public int playerId = 0;
+
     public void LoadDeckFromJson()
     {
         TextAsset jsonFile = cardDataAsset;
@@ -81,7 +83,10 @@ public class DeckManager : MonoBehaviour
 
         var display = cardObj.GetComponent<CardDisplay>();
         if (display != null)
+        {
             display.Initialize(cardData);
+            display.ownerId = playerId;
+        }
         else
             Debug.LogWarning("CardDisplay script not found on prefab.");
 
@@ -131,6 +136,7 @@ public class DeckManager : MonoBehaviour
         if (display != null)
         {
             display.Initialize(cardData);
+            display.ownerId = playerId;
             display.nameText.enabled = true;
             display.descriptionText.enabled = true;
             display.leftValueText.enabled = true;

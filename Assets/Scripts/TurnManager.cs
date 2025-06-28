@@ -11,7 +11,11 @@ public class TurnManager : MonoBehaviour
     public int cardsPerTurn = 2;
 
     private int cardsPlayedThisTurn = 0;
-    private bool isPlayerOneTurn = true;
+    private int currentPlayer = 0; // 0 = player 1, 1 = player 2
+
+    public int CurrentPlayer => currentPlayer;
+
+    public bool IsPlayerTurn(int playerId) => playerId == currentPlayer;
 
     private void Awake()
     {
@@ -38,13 +42,18 @@ public class TurnManager : MonoBehaviour
     public void EndTurn()
     {
         cardsPlayedThisTurn = 0;
-        isPlayerOneTurn = !isPlayerOneTurn;
+        currentPlayer = (currentPlayer + 1) % 2;
         UpdateTurnText();
+    }
+
+    public void PassTurn()
+    {
+        EndTurn();
     }
 
     private void UpdateTurnText()
     {
         if (turnText != null)
-            turnText.text = isPlayerOneTurn ? "Player 1" : "Player 2";
+            turnText.text = currentPlayer == 0 ? "Player 1" : "Player 2";
     }
 }
