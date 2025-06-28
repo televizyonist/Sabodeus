@@ -3695,7 +3695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerListParent: {fileID: 864417514}
-  playerEntryPrefab: {fileID: 0}
+  playerEntryPrefab: {fileID: 8281063245650581674, guid: 18ac3c8631296ec43827f07a049bdf9f, type: 3}
 --- !u!1 &1227988839
 GameObject:
   m_ObjectHideFlags: 0
