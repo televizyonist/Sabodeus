@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\LocalizedText.cs" />
     <Compile Include="Assets\Scripts\MainMenu\RelayManager.cs" />
     <Compile Include="Assets\Scripts\MainMenu\CreateGameManager.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\NetworkPersistence.cs" />
     <Compile Include="Assets\Scripts\MainMenu\MultiplayerBoardInitializer.cs" />
     <Compile Include="Assets\Scripts\MainMenu\LobbyPlayerListManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\GraveyardVisual.cs" />
