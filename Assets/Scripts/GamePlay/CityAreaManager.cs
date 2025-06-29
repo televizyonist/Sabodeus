@@ -16,15 +16,18 @@ public class CityAreaManager : NetworkBehaviour
 
     [Tooltip("Owner player id for this city area")]
     public int playerId = 0;
+
+    [Header("Görsel ve Slotlar")]
     public Sprite cityCenterSprite;
     public Sprite slotSprite;
-    public float horizontalSpacing = 0.7f;
-    public float verticalOffset = -0.15f;
-    public Vector2 elementSize = new Vector2(0.6f, 0.9f); // Hedef boyut (2:3 oran)
-    public int baseSortingOrder = 100;
-
     public Transform slotParent;
     public TMP_Text scoreText;
+
+    [Header("Yerleşim Ayarları")]
+    public float horizontalSpacing = 0.7f;
+    public float verticalOffset = -0.15f;
+    public Vector2 elementSize = new Vector2(0.6f, 0.9f);
+    public int baseSortingOrder = 100;
 
     private readonly List<SlotController> rightSlots = new();
     private readonly List<SlotController> leftSlots = new();
@@ -34,9 +37,9 @@ public class CityAreaManager : NetworkBehaviour
     {
         if (!Managers.Contains(this))
             Managers.Add(this);
+
         EnsureRaycaster();
         BuildLayout();
-        UpdateScoreDisplay();
     }
 
     public override void OnDestroy()
@@ -45,6 +48,11 @@ public class CityAreaManager : NetworkBehaviour
         Managers.Remove(this);
     }
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        UpdateScoreDisplay();
+    }
 
     private void EnsureRaycaster()
     {
@@ -103,7 +111,6 @@ public class CityAreaManager : NetworkBehaviour
 
             obj.transform.localScale = new Vector3(uniformScale, uniformScale, 1f);
 
-            // Gerçek dünya boyutunu hesapla
             worldSize = new Vector2(pixelWidth * uniformScale, pixelHeight * uniformScale);
         }
 
