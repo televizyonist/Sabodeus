@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
-public class GraveyardVisual : MonoBehaviour
+public class GraveyardVisual : NetworkBehaviour
 {
     public TMP_Text countText;
     private readonly List<CardEntry> _cards = new();

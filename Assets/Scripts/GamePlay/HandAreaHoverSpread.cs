@@ -1,8 +1,9 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(HandLayoutFanStyle))]
-public class HandAreaHoverSpread : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class HandAreaHoverSpread : NetworkBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private HandLayoutFanStyle layout;
 

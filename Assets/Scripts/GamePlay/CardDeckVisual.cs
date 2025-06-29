@@ -1,8 +1,9 @@
+using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 
-public class CardDeckVisual : MonoBehaviour, IPointerClickHandler
+public class CardDeckVisual : NetworkBehaviour, IPointerClickHandler
 {
     public DeckManager deckManager;
     public GraveyardVisual graveyard;

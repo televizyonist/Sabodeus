@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class HandLayoutFanStyle : MonoBehaviour
+public class HandLayoutFanStyle : NetworkBehaviour
 {
     // Wider spacing to reduce overlap
     public float spacing = 1.25f;

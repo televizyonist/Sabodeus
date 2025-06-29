@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SlotController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class SlotController : NetworkBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool IsRightSide { get; private set; }
     public int Index { get; private set; }

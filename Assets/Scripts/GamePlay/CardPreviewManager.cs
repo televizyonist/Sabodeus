@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CardPreviewManager : MonoBehaviour
+public class CardPreviewManager : NetworkBehaviour
 {
     public static CardPreviewManager Instance { get; private set; }
 

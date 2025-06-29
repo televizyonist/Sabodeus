@@ -1,7 +1,8 @@
-using UnityEngine;
 using TMPro;
+using Unity.Netcode;
+using UnityEngine;
 
-public class TurnManager : MonoBehaviour
+public class TurnManager : NetworkBehaviour
 {
     public static TurnManager Instance { get; private set; }
 
