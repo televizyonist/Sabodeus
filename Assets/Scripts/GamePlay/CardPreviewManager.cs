@@ -45,8 +45,9 @@ public class CardPreviewManager : NetworkBehaviour
             settings = Resources.Load<CardPreviewSettings>("CardPreviewSettings");
     }
 
-    private void OnDestroy()
+    public override void OnDestroy()
     {
+        base.OnDestroy(); // NetworkBehaviour içindeki OnDestroy çalýþsýn
         if (Instance == this)
             Instance = null;
     }
@@ -65,11 +66,15 @@ public class CardPreviewManager : NetworkBehaviour
             Vector3 viewportPos = new Vector3(previewScreenPosition.x, previewScreenPosition.y, previewDepth);
             spawnPos = Camera.main.ViewportToWorldPoint(viewportPos);
         }
+
         currentPreview = Instantiate(card, spawnPos, Quaternion.identity);
+
         foreach (var drag in currentPreview.GetComponentsInChildren<CardDraggable>(true))
             Destroy(drag);
+
         foreach (var col in currentPreview.GetComponentsInChildren<Collider>(true))
             Destroy(col);
+
         currentPreview.transform.localScale = Vector3.one * previewScale;
     }
 

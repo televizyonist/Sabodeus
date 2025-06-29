@@ -66,7 +66,6 @@
     <Compile Include="Assets\Scripts\MainMenu\RelayManager.cs" />
     <Compile Include="Assets\Scripts\MainMenu\CreateGameManager.cs" />
     <Compile Include="Assets\Scripts\MainMenu\NetworkPersistence.cs" />
-    <Compile Include="Assets\Scripts\MainMenu\MultiplayerBoardInitializer.cs" />
     <Compile Include="Assets\Scripts\MainMenu\LobbyPlayerListManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\GraveyardVisual.cs" />
     <Compile Include="Assets\Scripts\GamePlay\CardEntry.cs" />
@@ -78,6 +77,7 @@
     <Compile Include="Assets\Scripts\GamePlay\CardPreviewManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\CardDisplay.cs" />
     <Compile Include="Assets\Scripts\GamePlay\HandLayoutFanStyle.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\MultiplayerBoardInitializer.cs" />
     <Compile Include="Assets\Scripts\GamePlay\HandAreaHoverSpread.cs" />
     <Compile Include="Assets\Scripts\MainMenu\ExitGameHandler.cs" />
     <Compile Include="Assets\Scripts\MainMenu\LobbyPlayerListUI.cs" />
