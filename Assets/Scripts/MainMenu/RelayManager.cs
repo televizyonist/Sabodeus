@@ -18,13 +18,11 @@ public class RelayManager : MonoBehaviour
 
     private NetworkManager netManager;
     private UnityTransport transport;
+    private bool initialized = false;
 
-    private void Awake()
-    {
-        _ = AwakeAsync();
-    }
+    public bool IsInitialized => initialized;
 
-    public async Task AwakeAsync()
+    private async void Awake()
     {
         try
         {
@@ -38,11 +36,12 @@ public class RelayManager : MonoBehaviour
 
             if (cachedUI == null)
                 cachedUI = FindObjectOfType<JoinAndCreateUI>();
+
+            initialized = true;
         }
         catch (System.Exception e)
         {
             Debug.LogError("[RelayManager] Awake failed: " + e);
-            throw;
         }
     }
 
@@ -59,6 +58,11 @@ public class RelayManager : MonoBehaviour
 
     public async Task CreateRelay()
     {
+        if (!initialized)
+        {
+            Debug.LogWarning("[RelayManager] CreateRelay called before initialization finished.");
+            return;
+        }
         if (!CheckTransport()) return;
 
         try
@@ -81,12 +85,16 @@ public class RelayManager : MonoBehaviour
         catch (RelayServiceException e)
         {
             Debug.LogError("[RelayManager] Relay Host Hatası: " + e);
-            throw;
         }
     }
 
     public async Task JoinRelayWithCallback(string joinCode, System.Action onSuccess)
     {
+        if (!initialized)
+        {
+            Debug.LogWarning("[RelayManager] JoinRelay called before initialization finished.");
+            return;
+        }
         if (!CheckTransport()) return;
 
         try
@@ -114,7 +122,6 @@ public class RelayManager : MonoBehaviour
         catch (RelayServiceException e)
         {
             Debug.LogError("[RelayManager] Relay Join Hatası: " + e);
-            throw;
         }
     }
 
