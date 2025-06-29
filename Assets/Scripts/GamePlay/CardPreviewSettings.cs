@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CardPreviewSettings", menuName = "ScriptableObjects/CardPreviewSettings")]
+[CreateAssetMenu(fileName = "CardPreviewSettings", menuName = "ScriptableObjects/Card Preview Settings")]
 public class CardPreviewSettings : ScriptableObject
 {
     [Header("Preview Settings")]
@@ -16,5 +16,6 @@ public class CardPreviewSettings : ScriptableObject
     [Tooltip("If true previewScreenPosition is used to place the preview")]
     public bool useScreenPosition = false;
 
+    [Tooltip("Scale factor of the previewed card")]
     public float previewScale = 0.7f;
 }

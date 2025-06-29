@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CardPreviewManager : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class CardPreviewManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Init()
     {
+        // Sadece GamePlay sahnesinde çalýþsýn
+        if (SceneManager.GetActiveScene().name != "GamePlay")
+            return;
+
         if (Instance != null)
             return;
 
@@ -22,6 +27,12 @@ public class CardPreviewManager : MonoBehaviour
 
     private void Awake()
     {
+        if (SceneManager.GetActiveScene().name != "GamePlay")
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);

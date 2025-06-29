@@ -60,31 +60,31 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.62f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\LobbyPlayerListUI.cs" />
-    <Compile Include="Assets\Scripts\CardDisplay.cs" />
-    <Compile Include="Assets\Scripts\JoinAndCreateUI.cs" />
-    <Compile Include="Assets\Scripts\StartGameHandler.cs" />
-    <Compile Include="Assets\Scripts\CityAreaManager.cs" />
-    <Compile Include="Assets\Scripts\DeckManager.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\SettingsMenuRuntime.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\SlotController.cs" />
     <Compile Include="Assets\Scripts\LocalizedText.cs" />
-    <Compile Include="Assets\Scripts\CardPreviewManager.cs" />
-    <Compile Include="Assets\Scripts\CardPreviewSettings.cs" />
-    <Compile Include="Assets\Scripts\CardEntry.cs" />
-    <Compile Include="Assets\Scripts\CardDeckVisual.cs" />
-    <Compile Include="Assets\Scripts\RelayManager.cs" />
-    <Compile Include="Assets\Scripts\HandLayoutFanStyle.cs" />
-    <Compile Include="Assets\Scripts\LobbyPlayerListManager.cs" />
-    <Compile Include="Assets\Scripts\CreateGameManager.cs" />
-    <Compile Include="Assets\Scripts\SlotController.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\RelayManager.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\CreateGameManager.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\MultiplayerBoardInitializer.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\LobbyPlayerListManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\GraveyardVisual.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\CardEntry.cs" />
     <Compile Include="Assets\Scripts\LocalizationManager.cs" />
-    <Compile Include="Assets\Scripts\SettingsMenuRuntime.cs" />
-    <Compile Include="Assets\Scripts\JoinGameManager.cs" />
-    <Compile Include="Assets\Scripts\TurnManager.cs" />
-    <Compile Include="Assets\Scripts\HandAreaHoverSpread.cs" />
-    <Compile Include="Assets\Scripts\MultiplayerBoardInitializer.cs" />
-    <Compile Include="Assets\Scripts\GraveyardVisual.cs" />
-    <Compile Include="Assets\Scripts\ExitGameHandler.cs" />
-    <Compile Include="Assets\Scripts\CardDraggable.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\CityAreaManager.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\JoinAndCreateUI.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\CardPreviewSettings.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\CardPreviewManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\CardDisplay.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\HandLayoutFanStyle.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\HandAreaHoverSpread.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\ExitGameHandler.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\LobbyPlayerListUI.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\JoinGameManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\CardDeckVisual.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\DeckManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\TurnManager.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\CardDraggable.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\StartGameHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
