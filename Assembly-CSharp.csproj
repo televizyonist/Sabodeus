@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\GamePlay\CityAreaManager.cs" />
     <Compile Include="Assets\Scripts\MainMenu\JoinAndCreateUI.cs" />
     <Compile Include="Assets\Scripts\GamePlay\CardPreviewSettings.cs" />
+    <Compile Include="Assets\Scripts\GamePlay\HandVisibility.cs" />
     <Compile Include="Assets\Scripts\GamePlay\CardPreviewManager.cs" />
     <Compile Include="Assets\Scripts\GamePlay\CardDisplay.cs" />
     <Compile Include="Assets\Scripts\GamePlay\HandLayoutFanStyle.cs" />
