@@ -39,11 +39,12 @@ public class CityAreaManager : NetworkBehaviour
         UpdateScoreDisplay();
     }
 
-    protected override void OnDestroy()
+    public override void OnDestroy()
     {
         base.OnDestroy();
         Managers.Remove(this);
     }
+
 
     private void EnsureRaycaster()
     {

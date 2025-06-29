@@ -30,7 +30,12 @@ public class RelayManager : MonoBehaviour
         {
             await Initialize();
             netManager = NetworkManager.Singleton;
-            transport = netManager?.NetworkConfig.NetworkTransport as UnityTransport;
+
+            // 🔧 UnityTransport'ı güvenli şekilde bul:
+            transport = netManager?.GetComponent<UnityTransport>();
+            if (transport == null)
+                transport = GameObject.FindObjectOfType<UnityTransport>();
+
             if (cachedUI == null)
                 cachedUI = FindObjectOfType<JoinAndCreateUI>();
         }
