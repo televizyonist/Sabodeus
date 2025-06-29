@@ -17,7 +17,8 @@ public class DeckManager : NetworkBehaviour
     private Stack<CardEntry> drawPile = new();
     private HandLayoutFanStyle handLayout;
 
-    [Tooltip("Owner player id of this deck")] public int playerId = 0;
+    [Tooltip("Owner player id of this deck")]
+    public int playerId = 0;
 
     public void LoadDeckFromJson()
     {
@@ -57,6 +58,7 @@ public class DeckManager : NetworkBehaviour
             Debug.LogWarning("Draw pile is empty!");
             return null;
         }
+
         return drawPile.Pop();
     }
 
@@ -77,10 +79,8 @@ public class DeckManager : NetworkBehaviour
             return null;
         }
 
-        GameObject cardObj = Instantiate(cardPrefab, handAreaTransform);
-        // Reduce card size to one third of the previous scale
-        cardObj.transform.localScale = Vector3.one * (0.8f / 3f);
-        cardObj.transform.localPosition = Vector3.zero;
+        GameObject cardObj = Instantiate(cardPrefab);
+        cardObj.transform.SetParent(handAreaTransform, false);
 
         var display = cardObj.GetComponent<CardDisplay>();
         if (display != null)
@@ -88,12 +88,8 @@ public class DeckManager : NetworkBehaviour
             display.Initialize(cardData);
             display.ownerId = playerId;
         }
-        else
-            Debug.LogWarning("CardDisplay script not found on prefab.");
 
-        // 🔄 Fan stili dizilim için doğru scripti çağır
-        if (handLayout != null)
-            handLayout.UpdateLayout();
+        handLayout?.UpdateLayout();
 
         return cardData;
     }
@@ -131,7 +127,7 @@ public class DeckManager : NetworkBehaviour
             yield return null;
         }
 
-        cardObj.transform.SetParent(handAreaTransform, true);
+        cardObj.transform.SetParent(handAreaTransform, false);
         cardObj.transform.localPosition = Vector3.zero;
 
         if (display != null)
@@ -145,8 +141,7 @@ public class DeckManager : NetworkBehaviour
             display.typeIcon.enabled = true;
         }
 
-        if (handLayout != null)
-            handLayout.UpdateLayout();
+        handLayout?.UpdateLayout();
     }
 
     public CardEntry SpawnCardToHandAnimated(Transform startPoint)
@@ -191,7 +186,6 @@ public class DeckManager : NetworkBehaviour
         handLayout = handAreaTransform.GetComponent<HandLayoutFanStyle>();
         LoadDeckFromJson();
         InitializeDrawPile();
-
         StartCoroutine(DealStartingHand(4));
     }
 

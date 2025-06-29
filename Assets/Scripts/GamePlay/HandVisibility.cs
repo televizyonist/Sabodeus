@@ -9,5 +9,10 @@ public class HandVisibility : NetworkBehaviour
         {
             gameObject.SetActive(false);
         }
+        else
+        {
+            // Sahibi olan oyuncunun eli ekranýn altýna yerleþtirilir
+            transform.position = new Vector3(0, -4.5f, 0);
+        }
     }
 }
